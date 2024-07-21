@@ -16,7 +16,7 @@ export default function Cart() {
     return (
         <>
             
-            <Container>
+            <Container style={{ minHeight: '60vh' }}>
                 <h1 className="text-center">SHOPPING CART</h1>
                 <Row className="my-3">
                     <Col xs={12} md={8}>
@@ -24,17 +24,17 @@ export default function Cart() {
                             <>
                                 <div className="d-flex justify-content-between mb-3">
                                     
-                                    <Button variant="danger" onClick={handleClearCart}>Clear Cart</Button>
+                                    <Button variant="danger" onClick={handleClearCart}>Xóa</Button>
                                 </div>
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Image</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Ảnh</th>
+                                            <th>Số lượng</th>
+                                            <th>Tổng</th>
                                         </tr>
                                     </thead>
                                     <tbody>

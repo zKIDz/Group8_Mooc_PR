@@ -121,6 +121,32 @@
           ],
           "cid": 4,
           "status": true
-      }
+      },
+      {
+        "id": 5,
+        "name": "MLB - Áo sơ mi unisex cổ bẻ tay ngắn Diamond Jacquard",
+        "price": 170,
+        "sizes": ["S", "M", "L", "XL"],
+        "images": [
+            {
+                "id": 1,
+                "name": "https://product.hstatic.net/200000642007/product/50whs_3awsm0343_1_1d4f954c83804ebeae975a5a0339f91b_478504a2df824d57b927df818ec3cd5f_master.jpg"
+            },
+            {
+                "id": 2,
+                "name": "https://product.hstatic.net/200000642007/product/50whs_3awsm0343_3_d610b3a89f78402393a43c8108be9366_a2f8934a74e0405999da88852b3982c7_master.jpg"
+            },
+            {
+              "id": 3,
+              "name": "https://product.hstatic.net/200000642007/product/50whs_3awsm0343_6_3a77a59a962b46bcaca185925eee5ccf_7c622a957a524fe78d8aa834e5fbeacd_master.jpg"
+          },
+            {
+                "id": 4,
+                "name": "https://product.hstatic.net/200000642007/product/50whs_3awsm0343_7_00f547860ef14191b1ab42ca5b707076_1da50878621541eb86ee5d8fa9464c07_master.jpg"
+            }
+        ],
+        "cid": 1,
+        "status": true
+    }
     ]
 }
