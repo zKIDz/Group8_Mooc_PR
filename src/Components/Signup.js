@@ -9,9 +9,11 @@ const Signup = () => {
     fullName: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    role : "user",
   });
-
+  const [PasswordData, setConfirmPassword]=useState({
+    confirmPassword:"",
+  })
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
 
@@ -41,7 +43,7 @@ const Signup = () => {
       isValid = false;
       validationErrors.password = "Password must be at least 6 characters";
     }
-    if (formData.confirmPassword !== formData.password) {
+    if (PasswordData.confirmPassword !== formData.password) {
       isValid = false;
       validationErrors.confirmPassword = "Passwords do not match";
     }
@@ -56,7 +58,6 @@ const Signup = () => {
             fullName: "",
             email: "",
             password: "",
-            confirmPassword: "",
           });
         })
         .catch(error => {
@@ -115,7 +116,7 @@ const Signup = () => {
             type="password"
             name="confirmPassword"
             value={formData.confirmPassword}
-            onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+            onChange={(e) => setConfirmPassword({ ...formData, confirmPassword: e.target.value })}
             isInvalid={!!errors.confirmPassword}
           />
           <Form.Control.Feedback type="invalid">{errors.confirmPassword}</Form.Control.Feedback>
