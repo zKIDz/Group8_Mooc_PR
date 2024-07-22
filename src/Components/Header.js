@@ -43,7 +43,7 @@ export default function Header() {
               <Nav.Link href="#wishlist">
                 <i className="bi bi-heart"></i>
               </Nav.Link>
-              <Nav.Link href="#account">
+              <Nav.Link href="/login">
                 <i className="bi bi-person"></i>
               </Nav.Link>
             </Nav>
