@@ -8,11 +8,16 @@ import './Header.css';
 
 export default function Header() {
     const [categories, setCategories] = useState([]);
+    const [cartCount, setCartCount] = useState(0);
 
     useEffect(() => {
         axios.get('http://localhost:9999/categories').then((response) => {
             setCategories(response.data);
         });
+
+        // Read cart count from localStorage
+        const count = localStorage.getItem('cartCount') || 0;
+        setCartCount(parseInt(count, 10));
     }, []);
 
     return (
@@ -24,7 +29,6 @@ export default function Header() {
                     </div>
                 </Container>
             </div>
-
 
             <Navbar bg="light" expand="lg" className="main-navbar">
                 <Container>
@@ -51,6 +55,7 @@ export default function Header() {
                             <LinkContainer to="/cart">
                                 <Nav.Link>
                                     <i className="bi bi-bag"></i>
+                                    {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
                                 </Nav.Link>
                             </LinkContainer>
                             <Nav.Link href="#wishlist">
@@ -63,7 +68,6 @@ export default function Header() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-
         </div>
     );
 }

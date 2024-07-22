@@ -1,21 +1,39 @@
-import { Container, Row, Col, Table, Button } from "react-bootstrap";
+import { Container, Row, Col, Table, Button, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+
 export default function Cart() {
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+    
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+    }, [cartItems]);
+
     const subTotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     const shippingCost = subTotal ? 5 : 0; 
     const total = subTotal + shippingCost;
 
     const handleClearCart = () => {
         localStorage.removeItem('cart');
+        localStorage.removeItem('cartCount');
+        window.location.reload(); 
         setCartItems([]);
     };
+    const handleQuantityChange = (productId, size, quantity) => {
+        if (quantity < 1) {
+            quantity = 1;
+        }
+        const updatedCartItems = cartItems.map(item => 
+            item.id === productId && item.size === size ? { ...item, quantity: Number(quantity) } : item
+        );
+        setCartItems(updatedCartItems);
+    };
+
+    
 
     return (
         <>
-            
             <Container style={{ minHeight: '60vh' }}>
                 <h1 className="text-center">SHOPPING CART</h1>
                 <Row className="my-3">
@@ -23,7 +41,6 @@ export default function Cart() {
                         {cartItems.length > 0 ? (
                             <>
                                 <div className="d-flex justify-content-between mb-3">
-                                    
                                     <Button variant="danger" onClick={handleClearCart}>Xóa</Button>
                                 </div>
                                 <Table striped bordered hover>
@@ -31,21 +48,32 @@ export default function Cart() {
                                         <tr>
                                             <th>ID</th>
                                             <th>Tên sản phẩm</th>
+                                            <th>Size</th>
                                             <th>Giá</th>
                                             <th>Ảnh</th>
                                             <th>Số lượng</th>
                                             <th>Tổng</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {cartItems.map((item) => (
-                                            <tr key={item.id}>
+                                            <tr key={`${item.id}-${item.size}`}>
                                                 <td>{item.id}</td>
                                                 <td>{item.name}</td>
+                                                <td>{item.size}</td>
                                                 <td>${item.price}</td>
                                                 <td><img src={`${item.images[0]?.name}`} alt={item.name} style={{ width: '50px' }} /></td>
-                                                <td>{item.quantity}</td>
+                                                <td>
+                                                    <Form.Control 
+                                                        type="number" 
+                                                        value={item.quantity} 
+                                                        min="1"
+                                                        onChange={(e) => handleQuantityChange(item.id, item.size, e.target.value)}
+                                                    />
+                                                </td>
                                                 <td>${(item.price * item.quantity).toFixed(2)}</td>
+                                                
                                             </tr>
                                         ))}
                                     </tbody>
@@ -71,7 +99,6 @@ export default function Cart() {
                     </Col>
                 </Row>
             </Container>
-            
         </>
     );
 }

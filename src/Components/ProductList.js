@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Carousel, Row, Col, Card, Button, Form } from "react-bootstrap";
+import { Container, Carousel, Row, Col, Card, Form } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,18 +11,7 @@ export function ProductList() {
   const [categories, setCategories] = useState([]);
   const [filter, setFilter] = useState("none");
 
-  const addToCart = (productId) => {
-    let cartItem = JSON.parse(localStorage.getItem('cart')) || [];
-    let existingProduct = cartItem.findIndex(item => item.id === productId);
-    if (existingProduct !== -1) {
-      cartItem[existingProduct].quantity += 1;
-    } else {
-      let addProduct = products.findIndex(p => p.id === productId);
-      cartItem.push({ ...products[addProduct], quantity: 1 });
-    }
-    localStorage.setItem('cart', JSON.stringify(cartItem));
-    alert(`Sản phẩm đã được thêm vào giỏ hàng !`);
-  };
+  
 
   useEffect(() => {
     axios.get("http://localhost:9999/categories").then((response) => {
@@ -107,7 +96,7 @@ export function ProductList() {
                   </Card.Text>
                   <Card.Text>
                     <Link style={{ marginRight: '5px' }} className="btn btn-danger" to={`/product/${p.id}`}>Chi tiết</Link>
-                    <Button variant="success" onClick={() => addToCart(p.id)}>Thêm vào giỏ hàng</Button>
+                    
                   </Card.Text>
                 </Card.Body>
               </Card>
