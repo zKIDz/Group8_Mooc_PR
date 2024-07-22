@@ -5,10 +5,18 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Header.css';
+import { useAuth } from '../Contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
     const [categories, setCategories] = useState([]);
+    const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login'); // Điều hướng đến trang đăng nhập
+  };
     useEffect(() => {
         axios.get('http://localhost:9999/categories').then((response) => {
             setCategories(response.data);
@@ -44,6 +52,19 @@ export default function Header() {
                                 </LinkContainer>
                             ))}
                         </Nav>
+                        { localStorage.getItem('role')==="admin"?
+                        <Nav>
+                        <Nav.Link href="/admin">
+                            AdminPage
+                        </Nav.Link>
+                    </Nav>:
+                    <Nav>
+                    <Nav.Link href="/pro">
+                        Profile
+                    </Nav.Link>
+                </Nav>
+                    }
+                        
                         <Nav className="ml-auto">
                             <Nav.Link href="#search">
                                 <i className="bi bi-search"></i>
@@ -56,9 +77,14 @@ export default function Header() {
                             <Nav.Link href="#wishlist">
                                 <i className="bi bi-heart"></i>
                             </Nav.Link>
-                            <Nav.Link href="/login">
+                            {localStorage.getItem('role')!=""
+                            ?<Nav.Link href="/login">
+                            <i className="bi bi-person"></i>
+                        </Nav.Link>
+                        : <button onClick={handleLogout}>Logout</button>}
+                            {/* <Nav.Link href="/login">
                                 <i className="bi bi-person"></i>
-                            </Nav.Link>
+                            </Nav.Link> */}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
