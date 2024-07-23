@@ -12,15 +12,15 @@ export default function Header() {
     const [categories, setCategories] = useState([]);
 
     const { isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [cartCount, setCartCount] = useState(0);
 
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login'); // Điều hướng đến trang đăng nhập
-  };
+    const handleLogout = () => {
+        logout();
+        navigate('/'); // Điều hướng đến trang đăng nhập
+    };
     useEffect(() => {
         axios.get('http://localhost:9999/categories').then((response) => {
             setCategories(response.data);
@@ -59,19 +59,19 @@ export default function Header() {
                                 </LinkContainer>
                             ))}
                         </Nav>
-                        { localStorage.getItem('role')==="admin"?
-                        <Nav>
-                        <Nav.Link href="/admin">
-                            AdminPage
-                        </Nav.Link>
-                    </Nav>:
-                    <Nav>
-                    <Nav.Link href="/pro">
-                        Profile
-                    </Nav.Link>
-                </Nav>
-                    }
-                        
+                        {localStorage.getItem('role') === "admin" ?
+                            <Nav>
+                                <Nav.Link href="/admin">
+                                    AdminPage
+                                </Nav.Link>
+                            </Nav> :
+                            <Nav>
+                                <Nav.Link href="/pro">
+                                    Profile
+                                </Nav.Link>
+                            </Nav>
+                        }
+
                         <Nav className="ml-auto">
                             <Nav.Link href="#search">
                                 <i className="bi bi-search"></i>
@@ -85,11 +85,11 @@ export default function Header() {
                             <Nav.Link href="#wishlist">
                                 <i className="bi bi-heart"></i>
                             </Nav.Link>
-                            {localStorage.getItem('role')!=""
-                            ?<Nav.Link href="/login">
-                            <i className="bi bi-person"></i>
-                        </Nav.Link>
-                        : <button onClick={handleLogout}>Logout</button>}
+                            {localStorage.getItem('token') === "token"
+                                ? <button className='btn-logout' onClick={handleLogout}>Logout</button>
+                                : <Nav.Link href="/login">
+                                    <i className="bi bi-person"></i>
+                                </Nav.Link>}
                             {/* <Nav.Link href="/login">
                                 <i className="bi bi-person"></i>
                             </Nav.Link> */}
