@@ -19,7 +19,7 @@ const Login = () => {
       
       if (response.data.length > 0) {
         const user = response.data[0];
-        localStorage.setItem('token', 'fake-jwt-token'); // Bạn có thể thay thế bằng token thực nếu có
+        localStorage.setItem('token', 'fake-jwt-token'); 
         localStorage.setItem('role', user.role);
         login(user.role);
 

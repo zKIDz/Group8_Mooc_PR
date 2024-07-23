@@ -39,7 +39,8 @@ function App() {
             <LoginPage onLogin={handleLogin} />
           )}
         />
-          <Route path='/pro' element={<Profile/>}/>
+          {/* <Route path='/pro' element={<Profile/>}/> */}
+          <Route path="/pro" element={<ProtectedRoute component={Profile} allowedRoles={['user']} />} />
           <Route path='/signup' element={<SignupPage/>}/>
           <Route path="/cart" element={<Carts />} />
           <Route path="/admin" element={<ProtectedRoute component={AdminPage} allowedRoles={['admin']} />} />

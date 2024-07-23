@@ -3,17 +3,21 @@ import React, { createContext, useContext, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [role, setRole] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+  const [role, setRole] = useState(localStorage.getItem('role') || '');
 
-  const login = (userRole) => {
+  const login = (userRole, token) => {
+    localStorage.setItem('token', "token");
+    localStorage.setItem('role', userRole);
     setIsAuthenticated(true);
     setRole(userRole);
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
     setIsAuthenticated(false);
-    setRole(null);
+    setRole('');
   };
 
   return (
