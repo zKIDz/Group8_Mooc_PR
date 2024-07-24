@@ -10,7 +10,8 @@ import LoginPage from './Pages/LoginPage';
 import AdminPage from './Pages/AdminPage';
 import Profile from './Pages/Profile';
 import ProtectedRoute from './Components/ProtectedRoute';
-import { ProductList } from './Components/ProductList';
+import VerifyOrder from './Pages/VerifyOrder';
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
@@ -18,11 +19,7 @@ function App() {
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    setIsAuthenticated(false);
-  };
+  
   return (
     <>
     <AuthProvider>
@@ -31,6 +28,7 @@ function App() {
           <Route path="/" element={<HomePage /> } />
           <Route path="/category/:categoryid" element={<HomePage />} />
           <Route path="/product/:id" element={<Detail />} />
+          <Route path="/verify-order" element={<VerifyOrder />} />
           <Route
           path="/login"
           element={isAuthenticated ? (
