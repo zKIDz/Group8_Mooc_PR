@@ -88,6 +88,9 @@ const CheckOut = () => {
                             />
                         </Form.Group>
 
+<<<<<<< HEAD
+                        
+=======
                         <Form.Group controlId="district">
                             <Form.Label>Quận / Huyện</Form.Label>
                             <Form.Control
@@ -127,6 +130,7 @@ const CheckOut = () => {
                                 {/* Add options for wards */}
                             </Form.Control>
                         </Form.Group>
+>>>>>>> 0daf3332199778653abf29b9ad37fec85b9fc5e9
                     </Col>
 
                     <Col md={6}>

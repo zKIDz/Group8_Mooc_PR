@@ -37,7 +37,9 @@ export default function Cart() {
     };
 
     return (
-        <Container style={{ minHeight: '60vh' }}>
+
+        <Container style={{ minHeight: '40vh' }}>
+
             <h1 className="text-center">SHOPPING CART</h1>
             <Row className="my-3">
                 <Col xs={12} md={8}>
