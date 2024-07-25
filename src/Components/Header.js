@@ -73,7 +73,7 @@ export default function Header() {
                         }
 
                         <Nav className="ml-auto">
-                            <Nav.Link href="#search">
+                            <Nav.Link href="/search">
                                 <i className="bi bi-search"></i>
                             </Nav.Link>
                             <LinkContainer to="/cart">

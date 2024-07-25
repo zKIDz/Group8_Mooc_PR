@@ -11,6 +11,7 @@ import AdminPage from './Pages/AdminPage';
 import Profile from './Pages/Profile';
 import ProtectedRoute from './Components/ProtectedRoute';
 import VerifyOrder from './Pages/VerifyOrder';
+import SearchResult from './Pages/SearchResult';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           {/* <Route path='/pro' element={<Profile/>}/> */}
           <Route path="/pro" element={<ProtectedRoute component={Profile} allowedRoles={['user']} />} />
           <Route path='/signup' element={<SignupPage/>}/>
+          <Route path="/search" element={<SearchResult />} />
           <Route path="/cart" element={<Carts />} />
           <Route path="/admin" element={<ProtectedRoute component={AdminPage} allowedRoles={['admin']} />} />
        <Route
