@@ -16,6 +16,9 @@ import SearchResult from './Pages/SearchResult';
 =======
 >>>>>>> 0daf3332199778653abf29b9ad37fec85b9fc5e9
 
+import SearchResult from './Pages/SearchResult';
+
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));

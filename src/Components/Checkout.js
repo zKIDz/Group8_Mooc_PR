@@ -88,49 +88,7 @@ const CheckOut = () => {
                             />
                         </Form.Group>
 
-<<<<<<< HEAD
-                        
-=======
-                        <Form.Group controlId="district">
-                            <Form.Label>Quận / Huyện</Form.Label>
-                            <Form.Control
-                                as="select"
-                                name="district"
-                                value={formData.district}
-                                onChange={handleChange}
-                            >
-                                <option>Chọn quận / huyện</option>
-                                {/* Add options for districts */}
-                            </Form.Control>
-                        </Form.Group>
 
-
-                        <Form.Group controlId="city">
-                            <Form.Label>Tỉnh / Thành</Form.Label>
-                            <Form.Control
-                                as="select"
-                                name="city"
-                                value={formData.city}
-                                onChange={handleChange}
-                            >
-                                <option>Chọn tỉnh / thành</option>
-                                {/* Add options for cities */}
-                            </Form.Control>
-                        </Form.Group>
-
-                        <Form.Group controlId="ward">
-                            <Form.Label>Phường / Xã</Form.Label>
-                            <Form.Control
-                                as="select"
-                                name="ward"
-                                value={formData.ward}
-                                onChange={handleChange}
-                            >
-                                <option>Chọn phường / xã</option>
-                                {/* Add options for wards */}
-                            </Form.Control>
-                        </Form.Group>
->>>>>>> 0daf3332199778653abf29b9ad37fec85b9fc5e9
                     </Col>
 
                     <Col md={6}>
