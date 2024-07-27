@@ -1,13 +1,13 @@
-// src/Components/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../Contexts/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -23,16 +23,23 @@ const Login = () => {
         localStorage.setItem('role', user.role);
         login(user.role);
 
-        if (user.role === 'admin') {
-          navigate('/admin');
-        } else {
-          navigate('/');
-        }
+        setSuccessMessage('Login successful!');
+        setError('');
+
+        setTimeout(() => {
+          if (user.role === 'admin') {
+            navigate('/admin');
+          } else {
+            navigate('/pro');
+          }
+        }, 500); // Redirect after 2 seconds
       } else {
         setError('Invalid email or password');
+        setSuccessMessage('');
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
+      setSuccessMessage('');
     }
   };
 
@@ -42,11 +49,8 @@ const Login = () => {
         <div className="row justify-content-center">
           <div className="inner-wrap col">
             <h2>Login</h2>
-            <form
-              id="form"
-              className="form"
-              onSubmit={handleLogin}>
-              <div  className="form-group" >
+            <form id="form" className="form" onSubmit={handleLogin}>
+              <div className="form-group">
                 <label>Email:</label>
                 <input
                   type="email"
@@ -59,7 +63,7 @@ const Login = () => {
                   required
                 />
               </div>
-              <div  className="form-group">
+              <div className="form-group">
                 <label>Password:</label>
                 <input
                   type="password"
@@ -73,12 +77,18 @@ const Login = () => {
                 />
               </div>
               {error && <p style={{ color: 'red' }}>{error}</p>}
+              {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
               <div className="form-group">
-                <button className="btn form-control btn-success" type="submit">
+                <button className="btn form-control btn-success" type="submit" style={{ backgroundColor: "black", color: "white" }}>
                   Login
                 </button>
               </div>
             </form>
+            <div className="text-center">
+              <p>
+                Not a member? <Link to="/signup">Register</Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>

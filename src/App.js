@@ -11,12 +11,8 @@ import AdminPage from './Pages/AdminPage';
 import Profile from './Pages/Profile';
 import ProtectedRoute from './Components/ProtectedRoute';
 import VerifyOrder from './Pages/VerifyOrder';
-<<<<<<< HEAD
 import SearchResult from './Pages/SearchResult';
-=======
->>>>>>> 0daf3332199778653abf29b9ad37fec85b9fc5e9
-
-import SearchResult from './Pages/SearchResult';
+import WishlistPage from './Pages/WishlistPage';
 
 
 
@@ -49,6 +45,7 @@ function App() {
           <Route path='/signup' element={<SignupPage/>}/>
           <Route path="/search" element={<SearchResult />} />
           <Route path="/cart" element={<Carts />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/admin" element={<ProtectedRoute component={AdminPage} allowedRoles={['admin']} />} />
        <Route
           path="*"

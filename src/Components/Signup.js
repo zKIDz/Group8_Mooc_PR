@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
-import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import "./Signup.css";
 
@@ -9,15 +8,14 @@ const Signup = () => {
     fullName: "",
     email: "",
     password: "",
-    role : "user",
+    address: "", // Added address field
+    role: "user",
   });
-  const [PasswordData, setConfirmPassword]=useState({
-    confirmPassword:"",
-  })
+  const [PasswordData, setConfirmPassword] = useState({
+    confirmPassword: "",
+  });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,6 +45,10 @@ const Signup = () => {
       isValid = false;
       validationErrors.confirmPassword = "Passwords do not match";
     }
+    if (!formData.address) {
+      isValid = false;
+      validationErrors.address = "Address required";
+    }
 
     setErrors(validationErrors);
 
@@ -58,6 +60,8 @@ const Signup = () => {
             fullName: "",
             email: "",
             password: "",
+            address: "", // Reset address field
+            role: "user",
           });
         })
         .catch(error => {
@@ -85,7 +89,7 @@ const Signup = () => {
           />
           <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
         </Form.Group>
-        <br></br>
+        <br />
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -97,7 +101,19 @@ const Signup = () => {
           />
           <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </Form.Group>
-        <br></br>
+        <br />
+        <Form.Group controlId="address">
+          <Form.Label>Address</Form.Label>
+          <Form.Control
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+            isInvalid={!!errors.address}
+          />
+          <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
+        </Form.Group>
+        <br />
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -109,26 +125,24 @@ const Signup = () => {
           />
           <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
         </Form.Group>
-        <br></br>
+        <br />
         <Form.Group controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
             name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={(e) => setConfirmPassword({ ...formData, confirmPassword: e.target.value })}
+            value={PasswordData.confirmPassword}
+            onChange={(e) => setConfirmPassword({ ...PasswordData, confirmPassword: e.target.value })}
             isInvalid={!!errors.confirmPassword}
           />
           <Form.Control.Feedback type="invalid">{errors.confirmPassword}</Form.Control.Feedback>
         </Form.Group>
-        <br></br>
+        <br />
         <Button variant="dark" type="submit">
           Register
         </Button>
       </Form>
-      
     </div>
-    
   );
 };
 

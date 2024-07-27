@@ -50,7 +50,7 @@
       "status": true
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "MLB - Chân váy denim mini phom chữ A Heart Jacquard",
       "price": 170,
       "sizes": [
@@ -143,7 +143,7 @@
       "status": true
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "MLB - Áo sơ mi unisex cổ bẻ tay ngắn Diamond Jacquard",
       "price": 170,
       "sizes": [
@@ -198,13 +198,6 @@
       "role": "user"
     },
     {
-      "id": "634c",
-      "name": "nguyen hao2",
-      "email": "haonguyen493@gmail.com",
-      "password": "123456",
-      "role": "user"
-    },
-    {
       "id": "382a",
       "name": "dang1",
       "email": "dang@gmail.com",
@@ -230,6 +223,14 @@
       "fullName": "VanTruongLong",
       "email": "iloveyouxg1234@gmail.com",
       "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "15a3",
+      "fullName": "quynh",
+      "email": "quynh@gmail.com",
+      "password": "123456",
+      "address": "kim ma",
       "role": "user"
     }
   ]

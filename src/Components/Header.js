@@ -82,7 +82,7 @@ export default function Header() {
                                     {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
                                 </Nav.Link>
                             </LinkContainer>
-                            <Nav.Link href="#wishlist">
+                            <Nav.Link href="/wishlist">
                                 <i className="bi bi-heart"></i>
                             </Nav.Link>
                             {localStorage.getItem('token') === "token"
