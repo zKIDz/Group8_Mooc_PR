@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../Contexts/AuthContext';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../Contexts/AuthContext";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -15,31 +15,43 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.get(`http://localhost:9999/users?email=${email}&password=${password}`);
+      console.log("Sending login request for:", email, password);
+
+      const response = await axios.get(
+        `http://localhost:9999/users?email=${email}&password=${password}`
+      );
+
+      console.log("Response status:", response.status);
+      console.log("Response data:", response.data);
 
       if (response.data.length > 0) {
         const user = response.data[0];
-        localStorage.setItem('token', 'fake-jwt-token');
-        localStorage.setItem('role', user.role);
-        login(user.role);
+        console.log("User found:", user);
 
-        setSuccessMessage('Login successful!');
-        setError('');
+        localStorage.setItem("token", "fake-jwt-token");
+        localStorage.setItem("role", user.role);
+        localStorage.setItem("email", user.email); // Save email to local storage
+        login(user.role, user.email); // Pass email to login function
+
+        setSuccessMessage("Login successful!");
+        setError("");
 
         setTimeout(() => {
-          if (user.role === 'admin') {
-            navigate('/admin');
+          if (user.role === "admin") {
+            navigate("/admin");
           } else {
-            navigate('/pro');
+            navigate("/pro");
           }
-        }, 500); // Redirect after 2 seconds
+        }, 500); // Redirect after 0.5 seconds
       } else {
-        setError('Invalid email or password');
-        setSuccessMessage('');
+        console.log("Invalid email or password");
+        setError("Invalid email or password");
+        setSuccessMessage("");
       }
     } catch (error) {
-      setError('An error occurred. Please try again.');
-      setSuccessMessage('');
+      console.error("An error occurred:", error);
+      setError("An error occurred. Please try again.");
+      setSuccessMessage("");
     }
   };
 
@@ -76,10 +88,16 @@ const Login = () => {
                   required
                 />
               </div>
-              {error && <p style={{ color: 'red' }}>{error}</p>}
-              {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+              {error && <p style={{ color: "red" }}>{error}</p>}
+              {successMessage && (
+                <p style={{ color: "green" }}>{successMessage}</p>
+              )}
               <div className="form-group">
-                <button className="btn form-control btn-success" type="submit" style={{ backgroundColor: "black", color: "white" }}>
+                <button
+                  className="btn form-control btn-success"
+                  type="submit"
+                  style={{ backgroundColor: "black", color: "white" }}
+                >
                   Login
                 </button>
               </div>

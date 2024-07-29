@@ -233,5 +233,32 @@
       "address": "kim ma",
       "role": "user"
     }
+  ],
+  "wishlists": [
+    {
+      "id": "1",
+      "email": "quynh@gmail.com",
+      "productIds": [
+        "1",
+        "4",
+        "2",
+        "3",
+        "5"
+      ]
+    },
+    {
+      "id": "0116",
+      "email": "haonguyen493@gmail.com",
+      "productIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "f3cc",
+      "email": "dang@gmail.com",
+      "productIds": [
+        "4"
+      ]
+    }
   ]
 }
