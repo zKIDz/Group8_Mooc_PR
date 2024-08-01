@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import './ProductDetail.css';
+import "./ProductDetail.css";
 
 export function ProductDetail() {
   const { id } = useParams();
@@ -19,18 +19,23 @@ export function ProductDetail() {
       return;
     }
 
-    let cartItem = JSON.parse(localStorage.getItem('cart')) || [];
-    let existingProduct = cartItem.findIndex(item => item.id === product.id && item.size === selectedSize);
+    let cartItem = JSON.parse(localStorage.getItem("cart")) || [];
+    let existingProduct = cartItem.findIndex(
+      (item) => item.id === product.id && item.size === selectedSize
+    );
     if (existingProduct !== -1) {
       cartItem[existingProduct].quantity += 1;
     } else {
       cartItem.push({ ...product, size: selectedSize, quantity: 1 });
     }
-    localStorage.setItem('cart', JSON.stringify(cartItem));
+    localStorage.setItem("cart", JSON.stringify(cartItem));
 
     // Update cart count in localStorage
-    const cartCount = cartItem.reduce((total, item) => total + item.quantity, 0);
-    localStorage.setItem('cartCount', cartCount);
+    const cartCount = cartItem.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
+    localStorage.setItem("cartCount", cartCount);
 
     alert(`Sản phẩm đã được thêm vào giỏ hàng!`);
     window.location.reload();
@@ -55,13 +60,13 @@ export function ProductDetail() {
     <Container className="product-detail">
       <Row>
         <Col xs={12} md={6}>
-          <Card style={{ height: '655px', width: '530px' }}>
+          <Card style={{ height: "655px", width: "530px" }}>
             <Card.Img
               className="product-image"
               variant="top"
               src={product.mainImage || product?.images?.[0]?.name}
               alt={product?.name}
-              style={{ height: '655px', width: '530px' }}
+              style={{ height: "655px", width: "530px" }}
             />
           </Card>
           <Row className="mt-2">
@@ -85,19 +90,26 @@ export function ProductDetail() {
             {product?.sizes?.map((size, index) => (
               <div
                 key={index}
-                className={`size-option ${!product.status ? 'disabled' : ''} ${selectedSize === size ? 'active' : ''}`}
+                className={`size-option ${!product.status ? "disabled" : ""} ${
+                  selectedSize === size ? "active" : ""
+                }`}
                 onClick={() => handleSizeChoose(size)}
               >
                 {size}
               </div>
             ))}
           </div>
-          <h3>Status: {product?.status ? (
-            <span style={{ color: 'green' }}>In stock</span>
-          ) : (
-            <span style={{ color: 'red' }}>Out of stock</span>
-          )}</h3>
-          <Button variant="success" onClick={() => addToCart(product)}>Thêm vào giỏ hàng</Button>
+          <h3>
+            Status:{" "}
+            {product?.status ? (
+              <span style={{ color: "green" }}>In stock</span>
+            ) : (
+              <span style={{ color: "red" }}>Out of stock</span>
+            )}
+          </h3>
+          <Button variant="success" onClick={() => addToCart(product)}>
+            Thêm vào giỏ hàng
+          </Button>
         </Col>
       </Row>
     </Container>

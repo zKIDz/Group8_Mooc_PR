@@ -1,7 +1,7 @@
-import { BrowserRouter, Route, Routes, Navigate  } from 'react-router-dom';
-import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { AuthProvider } from './Contexts/AuthContext';
+import { AuthProvider, useAuth } from './Contexts/AuthContext';
 import Detail from './Pages/Detail';
 import HomePage from './Pages/HomePage';
 import Carts from './Pages/Carts';
@@ -11,54 +11,40 @@ import AdminPage from './Pages/AdminPage';
 import Profile from './Pages/Profile';
 import ProtectedRoute from './Components/ProtectedRoute';
 import VerifyOrder from './Pages/VerifyOrder';
-
 import SearchResult from './Pages/SearchResult';
-
-
-
-
-
+import WishlistPage from './Pages/WishlistPage';
+import Success from './Pages/Success';
+import ManageOrder from './Pages/ManageOrder';
+import OrderDetails from './Pages/OrderDetails';
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
-  const role = localStorage.getItem('role');
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
-  
   return (
-    <>
     <AuthProvider>
-    <BrowserRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage /> } />
+          <Route path="/" element={<HomePage />} />
           <Route path="/category/:categoryid" element={<HomePage />} />
           <Route path="/product/:id" element={<Detail />} />
           <Route path="/verify-order" element={<VerifyOrder />} />
+          <Route path="/order-success" element={<Success />} />
+          <Route path="/manage-order" element={<ManageOrder />} />
+          <Route path="/order-details/:id" element={<OrderDetails />} />
           <Route
-          path="/login"
-          element={isAuthenticated ? (
-            role === 'admin' ? <Navigate to="/admin" /> : <Navigate to="/" />
-          ) : (
-            <LoginPage onLogin={handleLogin} />
-          )}
-        />
-          {/* <Route path='/pro' element={<Profile/>}/> */}
-          <Route path="/pro" element={<ProtectedRoute component={Profile} allowedRoles={['user']} />} />
-          <Route path='/signup' element={<SignupPage/>}/>
+            path="/login"
+            element={<LoginPage />}
+          />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/search" element={<SearchResult />} />
           <Route path="/cart" element={<Carts />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/pro" element={<ProtectedRoute component={Profile} allowedRoles={['user']} />} />
           <Route path="/admin" element={<ProtectedRoute component={AdminPage} allowedRoles={['admin']} />} />
-       <Route
-          path="*"
-          element={<Navigate to={isAuthenticated ? (role === 'admin' ? "/admin" : "/") : "/login"} />}
-        />
+          <Route
+            path="*"
+            element={<Navigate to="/" />}
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
-
-     
-
-    </>
   );
 }
 

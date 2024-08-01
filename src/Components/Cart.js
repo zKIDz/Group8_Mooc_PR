@@ -1,12 +1,20 @@
 import { Container, Row, Col, Table, Button, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Contexts/AuthContext"; // Đảm bảo đường dẫn đúng
 
 export default function Cart() {
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('cart')) || []);
 
     const handleCheckout = () => {
+        if (!isAuthenticated) {
+            alert('Phải đăng nhập để thanh toán');
+            navigate('/login');
+            return;
+        }
+
         if (cartItems.length > 0) {
             navigate('/verify-order', { state: { cartItems } });
         }
@@ -18,12 +26,11 @@ export default function Cart() {
 
     const subTotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     
-
     const handleClearCart = () => {
         localStorage.removeItem('cart');
         localStorage.removeItem('cartCount');
-        window.location.reload(); 
         setCartItems([]);
+        window.location.reload(); 
     };
 
     const handleQuantityChange = (productId, size, quantity) => {
@@ -37,9 +44,7 @@ export default function Cart() {
     };
 
     return (
-
         <Container style={{ minHeight: '40vh' }}>
-
             <h1 className="text-center">SHOPPING CART</h1>
             <Row className="my-3">
                 <Col xs={12} md={8}>
@@ -93,7 +98,6 @@ export default function Cart() {
                     <div className="order-summary">
                         <h4>THÔNG TIN ĐƠN HÀNG</h4>
                         <div className="order-summary-details">
-                            
                             <h4>Tổng đơn hàng: {subTotal.toFixed(2)} USD</h4>
                         </div>
                         <Button className="btn-block" disabled={cartItems.length === 0} onClick={handleCheckout}>THANH TOÁN</Button>
