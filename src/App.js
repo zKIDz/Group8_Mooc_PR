@@ -13,7 +13,9 @@ import ProtectedRoute from './Components/ProtectedRoute';
 import VerifyOrder from './Pages/VerifyOrder';
 import SearchResult from './Pages/SearchResult';
 import WishlistPage from './Pages/WishlistPage';
-
+import Success from './Pages/Success';
+import ManageOrder from './Pages/ManageOrder';
+import OrderDetails from './Pages/OrderDetails';
 function App() {
   return (
     <AuthProvider>
@@ -23,6 +25,9 @@ function App() {
           <Route path="/category/:categoryid" element={<HomePage />} />
           <Route path="/product/:id" element={<Detail />} />
           <Route path="/verify-order" element={<VerifyOrder />} />
+          <Route path="/order-success" element={<Success />} />
+          <Route path="/manage-order" element={<ManageOrder />} />
+          <Route path="/order-details/:id" element={<OrderDetails />} />
           <Route
             path="/login"
             element={<LoginPage />}

@@ -1,36 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
 import './Checkout.css';
 
 const CheckOut = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const cartItems = location.state?.cartItems || [];
+    
 
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
         phone: '',
-        deliveryMethod: 'home',
         address: '',
-        district: '',
-        city: '',
-        ward: '',
-        addressType: 'home',
-        promoCode: '',
     });
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            setFormData({
+                fullName: user.name,
+                email: user.email,
+                phone: user.phone,
+                address: user.address || '',
+            });
+        } else {
+            setFormData({
+                fullName: '',
+                email: '',
+                phone: '',
+                address: '',
+            });
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        const user = JSON.parse(localStorage.getItem('user'));
+        // Create order object
+        const order = {
+            customerId: user.id,
+            status: "false",
+            total: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
+            orderItems: cartItems.map(item => ({
+                pid: item.id,
+                size: item.size,
+                quantity: item.quantity
+            }))
+        };
+
+        try {
+            await axios.post('http://localhost:9999/orders', order);
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cartCount');
+            navigate('/order-success'); 
+        } catch (error) {
+            console.error('There was an error submitting the order:', error);
+        }
     };
 
     return (
@@ -75,8 +109,6 @@ const CheckOut = () => {
                             </Form.Text>
                         </Form.Group>
 
-                       
-
                         <Form.Group controlId="address">
                             <Form.Label>Địa chỉ</Form.Label>
                             <Form.Control
@@ -87,8 +119,6 @@ const CheckOut = () => {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-
-
                     </Col>
 
                     <Col md={6}>

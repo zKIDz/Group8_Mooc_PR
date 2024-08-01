@@ -194,6 +194,8 @@
       "id": "6d53",
       "name": "nguyen hao",
       "email": "haonguyen493@gmail.com",
+      "address": "123 HCm Street, City, Country",
+      "phone": "123456789",
       "password": "123456",
       "role": "user"
     },
@@ -202,6 +204,8 @@
       "name": "dang1",
       "email": "dang@gmail.com",
       "password": "123456",
+      "address": "123 HCm Street, City, Country",
+      "phone": "123456789",
       "role": "user"
     },
     {
@@ -239,10 +243,6 @@
       "id": "1",
       "email": "quynh@gmail.com",
       "productIds": [
-        "1",
-        "4",
-        "2",
-        "3",
         "5"
       ]
     },
@@ -250,14 +250,191 @@
       "id": "0116",
       "email": "haonguyen493@gmail.com",
       "productIds": [
-        "1"
+        "1",
+        "5"
       ]
     },
     {
       "id": "f3cc",
       "email": "dang@gmail.com",
       "productIds": [
-        "4"
+        "1",
+        "3"
+      ]
+    },
+    {
+      "id": "0ac3",
+      "email": "iloveyouxg1234@gmail.com",
+      "productIds": []
+    }
+  ],
+  "carts": [
+    {
+      "id": "1",
+      "email": "quynh@gmail.com",
+      "cartItems": [
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 2
+        },
+        {
+          "pid": "4",
+          "size": "L",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 470,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 2
+        },
+        {
+          "pid": "4",
+          "size": "L",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 190,
+      "orderItems": [
+        {
+          "pid": "3",
+          "size": "39",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "customerId": "382a",
+      "status": "false",
+      "total": 170,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "3e7e",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 170,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "5121",
+      "customerId": "382a",
+      "status": "false",
+      "total": 190,
+      "orderItems": [
+        {
+          "pid": "3",
+          "size": "38",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "2278",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 150,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "b49c",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 170,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "eb83",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 150,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "2274",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 170,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "L",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "45df",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 660,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "S",
+          "quantity": 1
+        },
+        {
+          "pid": "4",
+          "size": "L",
+          "quantity": 1
+        },
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 1
+        },
+        {
+          "pid": "5",
+          "size": "M",
+          "quantity": 1
+        }
       ]
     }
   ]

@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Carousel,
-  Row,
-  Col,
-  Card,
-  Form,
-  Button,
-} from "react-bootstrap";
+import {Container,Carousel,Row,Col,Card,Form,Button,} from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../Contexts/AuthContext"; // Import AuthContext

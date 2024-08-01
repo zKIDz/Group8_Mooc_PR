@@ -26,6 +26,9 @@ const Login = () => {
         const user = response.data[0];
         localStorage.setItem("token", "fake-jwt-token");
         localStorage.setItem("role", user.role);
+        localStorage.setItem("email", user.email); // Save email to local storage
+        login(user.role, user.email); // Pass email to login function
+        localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem("email", user.email);  
         login(user.role, user.email);
         setSuccessMessage("Login successful!");
