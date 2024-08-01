@@ -17,8 +17,11 @@ export default function Header() {
   const [cartCount, setCartCount] = useState(0);
 
   const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
     logout();
-    navigate("/"); // Redirect to homepage after logout
+    navigate('/');
   };
 
   useEffect(() => {
@@ -76,16 +79,19 @@ export default function Header() {
               <Nav.Link href="/search">
                 <i className="bi bi-search"></i>
               </Nav.Link>
+              <Nav.Link href="/manage-order">
+              <i class="bi bi-truck"></i>
+              </Nav.Link>
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <i className="bi bi-bag"></i>
+                <i class="bi bi-cart"></i>
                   {cartCount > 0 && (
                     <span className="cart-count">{cartCount}</span>
                   )}
                 </Nav.Link>
               </LinkContainer>
               <Nav.Link href="/wishlist">
-                <i className="bi bi-heart"></i>
+              <i class="bi bi-suit-heart-fill"></i>
               </Nav.Link>
               {isAuthenticated ? (
                 <button className="btn-logout" onClick={handleLogout}>
@@ -93,7 +99,7 @@ export default function Header() {
                 </button>
               ) : (
                 <Nav.Link href="/login">
-                  <i className="bi bi-person"></i>
+                  <i class="bi bi-person-circle"></i>
                 </Nav.Link>
               )}
             </Nav>

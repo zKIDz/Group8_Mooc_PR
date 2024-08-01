@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axios from "axios";
 import { useAuth } from "../Contexts/AuthContext"; // Import AuthContext
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ const Wishlist = () => {
   const { email } = useAuth(); // Get logged-in user's email from context
   const [wishlist, setWishlist] = useState({ email, productIds: [] });
   const [products, setProducts] = useState([]);
-  const [filter, setFilter] = useState("none");
+  
 
   useEffect(() => {
     if (email) {
@@ -40,14 +40,7 @@ const Wishlist = () => {
     }
   }, [email]);
 
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
-    if (e.target.value === "lowToHigh") {
-      setProducts([...products].sort((a, b) => a.price - b.price));
-    } else if (e.target.value === "highToLow") {
-      setProducts([...products].sort((a, b) => b.price - a.price));
-    }
-  };
+  
 
   const addToWishlist = (productId) => {
     if (email) {
