@@ -184,22 +184,15 @@
       "role": "admin"
     },
     {
-      "id": "J85ij7V",
-      "name": "Hà Văn Minh",
-      "email": "minhbkvn@gmail.com",
-      "password": "123456",
-      "role": "user"
-    },
-    {
       "id": "6d53",
       "name": "nguyen hao",
       "email": "haonguyen493@gmail.com",
       "address": "123 HCm Street, City, Country",
       "phoneNumber": "0966171568",
-      "password": "123456",
+      "password": "haonguyen493@gmail.com",
       "role": "user",
       "otp": null,
-      "fullName": "hao"
+      "fullName": "Nguyễn Mạnh Hào"
     },
     {
       "id": "382a",
@@ -264,6 +257,15 @@
       "email": "hai@gmail.com",
       "password": "123456",
       "address": "Hoang cau",
+      "role": "user"
+    },
+    {
+      "id": "5ade",
+      "fullName": "Nguyễn Lương Huy",
+      "email": "nguyenluonghuyxg1@gmail.com",
+      "password": "123456",
+      "address": "Xuan Giang ",
+      "phoneNumber": "0866944804",
       "role": "user"
     }
   ],

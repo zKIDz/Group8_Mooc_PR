@@ -1,0 +1,55 @@
+.profile-container {
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-info {
+  margin-bottom: 20px;
+}
+
+.profile-info label {
+  display: block;
+  margin-top: 10px;
+}
+
+.profile-info input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.change-password {
+  margin-bottom: 20px;
+}
+
+.change-password h2 {
+  margin-bottom: 10px;
+}
+
+.change-password label {
+  display: block;
+  margin-top: 10px;
+}
+
+.change-password input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.profile-actions {
+  text-align: center;
+}
+
+.profile-actions button {
+  padding: 10px 20px;
+  margin-top: 20px;
+}

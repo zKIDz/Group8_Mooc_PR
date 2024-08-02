@@ -3,12 +3,10 @@ import React, { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem("token")
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
-  const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
+  const [userId, setUserId] = useState(localStorage.getItem("userId") || ""); // Lấy userId từ localStorage
 
   const login = (userRole, userEmail, id) => {
     localStorage.setItem("token", "fake-jwt-token");
@@ -18,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
     setRole(userRole);
     setEmail(userEmail);
-    setUserId(id); 
+    setUserId(id); // Cập nhật state với userId
   };
 
   const logout = () => {
@@ -29,13 +27,11 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setRole("");
     setEmail("");
-    setUserId(""); 
+    setUserId("");
   };
 
   return (
-    <AuthContext.Provider
-      value={{ isAuthenticated, role, email, userId, login, logout }}
-    >
+    <AuthContext.Provider value={{ isAuthenticated, role, email, userId, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

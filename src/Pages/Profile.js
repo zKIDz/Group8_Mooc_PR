@@ -1,15 +1,169 @@
-import React from 'react';
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
-const AdminPage = () => {
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './Profile.css';
+import Footer from '../Components/Footer';
+import Header from '../Components/Header';
+const Profile = () => {
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+  const [updatedUser, setUpdatedUser] = useState({});
+  const [passwords, setPasswords] = useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const email = localStorage.getItem("email");
+      try {
+        const response = await axios.get(`http://localhost:9999/users?email=${email}`);
+        if (response.data.length > 0) {
+          setUser(response.data[0]);
+          setUpdatedUser(response.data[0]);
+        } else {
+          setError('User not found');
+        }
+      } catch (error) {
+        setError('Error fetching user details');
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const handleChange = (e) => {
+    setUpdatedUser({ ...updatedUser, [e.target.name]: e.target.value });
+  };
+
+  const handlePasswordChange = (e) => {
+    setPasswords({ ...passwords, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = async () => {
+    try {
+      await axios.patch(`http://localhost:9999/users/${user.id}`, updatedUser);
+      setUser(updatedUser);
+      setError(null);
+      alert('Profile updated successfully');
+    } catch (error) {
+      setError('Error updating profile');
+    }
+  };
+
+  const handlePasswordUpdate = async () => {
+    if (!user) return; 
+
+    const { oldPassword, newPassword, confirmPassword } = passwords;
+
+    if (oldPassword !== user.password) {
+      alert('Old password is incorrect');
+      window.location.reload();
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      alert('New password and confirm password do not match');
+      window.location.reload();
+      return;
+    }
+
+    if (newPassword === oldPassword) {
+      alert('New password must be different from the old password');
+      window.location.reload();
+      return;
+    }
+
+    try {
+      await axios.patch(`http://localhost:9999/users/${user.id}`, { password: newPassword });
+      setPasswords({ oldPassword: '', newPassword: '', confirmPassword: '' });
+      setError(null);
+      alert('Password updated successfully');
+    } catch (error) {
+      setError('Error updating password');
+    }
+  };
+
+  if (error) return <p className="error-message">{error}</p>;
+
   return (
     <div>
-      
-      <Header />
-
-      <Footer/>
+      <Header/>
+      <div className="profile-container">
+      <div className="profile-header">
+        <h1>User Profile</h1>
+      </div>
+      <div className="profile-info">
+        <label htmlFor="fullName">Full Name:</label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          value={updatedUser.fullName || ''}
+          onChange={handleChange}
+        />
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={updatedUser.email || ''}
+          onChange={handleChange}
+          readOnly
+        />
+        <label htmlFor="address">Address:</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          value={updatedUser.address || ''}
+          onChange={handleChange}
+        />
+        <label htmlFor="phoneNumber">Phone Number:</label>
+        <input
+          type="text"
+          id="phoneNumber"
+          name="phoneNumber"
+          value={updatedUser.phoneNumber || ''}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="change-password">
+        <h2>Change Password</h2>
+        <label htmlFor="oldPassword">Old Password:</label>
+        <input
+          type="password"
+          id="oldPassword"
+          name="oldPassword"
+          value={passwords.oldPassword}
+          onChange={handlePasswordChange}
+        />
+        <label htmlFor="newPassword">New Password:</label>
+        <input
+          type="password"
+          id="newPassword"
+          name="newPassword"
+          value={passwords.newPassword}
+          onChange={handlePasswordChange}
+        />
+        <label htmlFor="confirmPassword">Confirm New Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          value={passwords.confirmPassword}
+          onChange={handlePasswordChange}
+        />
+        <button onClick={handlePasswordUpdate}>Change Password</button>
+      </div>
+      <div className="profile-actions">
+        <button onClick={handleSave}>Save Changes</button>
+      </div>
     </div>
+    <Footer/>
+    </div>
+    
   );
 };
 
-export default AdminPage;
+export default Profile;

@@ -19,18 +19,14 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(
-        `http://localhost:9999/users?email=${email}&password=${password}`
-      );
+      const response = await axios.get(`http://localhost:9999/users?email=${email}&password=${password}`);
       if (response.data.length > 0) {
         const user = response.data[0];
         localStorage.setItem("token", "fake-jwt-token");
         localStorage.setItem("role", user.role);
         localStorage.setItem("email", user.email);
-        login(user.role, user.email);
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem("email", user.email);  
-        login(user.role, user.email);
+        localStorage.setItem("userId", user.id); 
+        login(user.role, user.email, user.id);
         setSuccessMessage("Login successful!");
         setError("");
         setTimeout(() => {
@@ -52,6 +48,8 @@ const Login = () => {
       setSuccessMessage("");
     }
   };
+  
+  
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
