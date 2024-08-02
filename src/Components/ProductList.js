@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {Container,Carousel,Row,Col,Card,Form,Button,} from "react-bootstrap";
+import { Container, Carousel, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../Contexts/AuthContext"; // Import AuthContext
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ProductList.css";
 
@@ -67,30 +65,30 @@ export function ProductList() {
             `http://localhost:9999/wishlists/${wishlist.id}`,
             updatedWishlist
           )
-          .then((response) => {
+          .then(() => {
             setWishlist(updatedWishlist);
-            toast.success("Product added to wishlist!");
+            alert("Product added to wishlist!");
           })
           .catch((error) => {
             console.error(
               "There was an error adding the product to the wishlist!",
               error
             );
-            toast.error("Failed to add product to wishlist.");
+            alert("Failed to add product to wishlist.");
           });
       } else {
         axios
           .post("http://localhost:9999/wishlists", updatedWishlist)
           .then((response) => {
             setWishlist(response.data);
-            toast.success("Product added to wishlist!");
+            alert("Product added to wishlist!");
           })
           .catch((error) => {
             console.error(
               "There was an error adding the product to the wishlist!",
               error
             );
-            toast.error("Failed to add product to wishlist.");
+            alert("Failed to add product to wishlist.");
           });
       }
     } else {
@@ -106,16 +104,16 @@ export function ProductList() {
 
     axios
       .put(`http://localhost:9999/wishlists/${wishlist.id}`, updatedWishlist)
-      .then((response) => {
+      .then(() => {
         setWishlist(updatedWishlist);
-        toast.success("Product removed from wishlist!");
+        alert("Product removed from wishlist!");
       })
       .catch((error) => {
         console.error(
           "There was an error removing the product from the wishlist!",
           error
         );
-        toast.error("Failed to remove product from wishlist.");
+        alert("Failed to remove product from wishlist.");
       });
   };
 
@@ -125,7 +123,6 @@ export function ProductList() {
 
   return (
     <div>
-      <ToastContainer />
       <Carousel controls={true} indicators={false}>
         <Carousel.Item interval={1000}>
           <img

@@ -9,6 +9,7 @@ const Signup = () => {
     email: "",
     password: "",
     address: "", // Added address field
+    phoneNumber: "", // Added phone number field
     role: "user",
   });
   const [PasswordData, setConfirmPassword] = useState({
@@ -49,6 +50,13 @@ const Signup = () => {
       isValid = false;
       validationErrors.address = "Address required";
     }
+    if (!formData.phoneNumber) {
+      isValid = false;
+      validationErrors.phoneNumber = "Phone number required";
+    } else if (!/^\d{10}$/.test(formData.phoneNumber)) { // Simple phone number validation
+      isValid = false;
+      validationErrors.phoneNumber = "Phone number must be 10 digits";
+    }
 
     setErrors(validationErrors);
 
@@ -61,6 +69,7 @@ const Signup = () => {
             email: "",
             password: "",
             address: "", // Reset address field
+            phoneNumber: "", // Reset phone number field
             role: "user",
           });
         })
@@ -112,6 +121,18 @@ const Signup = () => {
             isInvalid={!!errors.address}
           />
           <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
+        </Form.Group>
+        <br />
+        <Form.Group controlId="phoneNumber">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type="text"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+            isInvalid={!!errors.phoneNumber}
+          />
+          <Form.Control.Feedback type="invalid">{errors.phoneNumber}</Form.Control.Feedback>
         </Form.Group>
         <br />
         <Form.Group controlId="password">

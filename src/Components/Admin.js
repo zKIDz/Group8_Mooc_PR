@@ -26,6 +26,7 @@ const Admin = () => {
     email: '',
     password: '',
     address: '',
+    phoneNumber: '',
     role: 'user'
   });
 
@@ -104,16 +105,17 @@ const Admin = () => {
             email: '',
             password: '',
             address: '',
-            role: 'user'
+            phoneNumber: '',
+            role: 'user' // Default role
           });
         })
         .catch(error => console.error('Error updating user:', error));
     } else {
-      // Create new user
-      // Create new product with auto-incrementing id
+      // Create new user with auto-incrementing id
       const maxId = Math.max(...users.map(u => parseInt(u.id)), 0);
       const newId = (maxId + 1).toString();
       const userWithId = { ...newUser, id: newId };
+      
       axios.post('http://localhost:9999/users', userWithId)
         .then(response => {
           setUsers([...users, response.data]);
@@ -123,7 +125,8 @@ const Admin = () => {
             email: '',
             password: '',
             address: '',
-            role: 'user'
+            phoneNumber: '', // Reset phoneNumber
+            role: 'user' // Default role
           });
         })
         .catch(error => console.error('Error creating user:', error));
@@ -158,7 +161,40 @@ const Admin = () => {
     setShowUserModal(true);
   };
 
-  const handleAddImage = () => {    setNewProduct({      ...newProduct,      images: [...newProduct.images, { id: newProduct.images.length + 1, name: '' }]    });  };  const handleRemoveImage = (index) => {    const updatedImages = [...newProduct.images];    updatedImages.splice(index, 1);    setNewProduct({ ...newProduct, images: updatedImages });  };  const handleAddSize = () => {    setNewProduct({ ...newProduct, sizes: [...newProduct.sizes, ''] });  };  const handleRemoveSize = (index) => {    const updatedSizes = [...newProduct.sizes];    updatedSizes.splice(index, 1);    setNewProduct({ ...newProduct, sizes: updatedSizes });  };  const handleImageUrlChange = (index, value) => {    const updatedImages = [...newProduct.images];    updatedImages[index].name = value;    setNewProduct({ ...newProduct, images: updatedImages });  };  const handleSizeChange = (index, value) => {    const updatedSizes = [...newProduct.sizes];    updatedSizes[index] = value;    setNewProduct({ ...newProduct, sizes: updatedSizes });  };
+  const handleAddImage = () => {
+    setNewProduct({
+      ...newProduct,
+      images: [...newProduct.images, { id: newProduct.images.length + 1, name: '' }]
+    });
+  };
+
+  const handleRemoveImage = (index) => {
+    const updatedImages = [...newProduct.images];
+    updatedImages.splice(index, 1);
+    setNewProduct({ ...newProduct, images: updatedImages });
+  };
+
+  const handleAddSize = () => {
+    setNewProduct({ ...newProduct, sizes: [...newProduct.sizes, ''] });
+  };
+
+  const handleRemoveSize = (index) => {
+    const updatedSizes = [...newProduct.sizes];
+    updatedSizes.splice(index, 1);
+    setNewProduct({ ...newProduct, sizes: updatedSizes });
+  };
+
+  const handleImageUrlChange = (index, value) => {
+    const updatedImages = [...newProduct.images];
+    updatedImages[index].name = value;
+    setNewProduct({ ...newProduct, images: updatedImages });
+  };
+
+  const handleSizeChange = (index, value) => {
+    const updatedSizes = [...newProduct.sizes];
+    updatedSizes[index] = value;
+    setNewProduct({ ...newProduct, sizes: updatedSizes });
+  };
 
   return (
     <div>
@@ -233,52 +269,53 @@ const Admin = () => {
                     email: '',
                     password: '',
                     address: '',
-                    role: 'user'
+                    phoneNumber: '', // Reset phoneNumber
+                    role: 'user' // Default role
                   });
                   setShowUserModal(true);
                 }}>
-                  Create User
-                </Button>
-                <Table striped bordered hover>
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Full Name</th>
-                      <th>Email</th>
-                      <th>Role</th>
-                      <th>Actions</th>
+                Create User
+              </Button>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Phone Number</th> {/* Added Phone Number */}
+                    <th>Role</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map(user => (
+                    <tr key={user.id}>
+                      <td>{user.id}</td>
+                      <td>{user.fullName}</td>
+                      <td>{user.email}</td>
+                      <td>{user.address}</td>
+                      <td>{user.phoneNumber}</td> {/* Display Phone Number */}
+                      <td>{user.role}</td>
+                      <td>
+                        <Button variant="primary" onClick={() => handleEditUser(user)}>
+                          Edit
+                        </Button>
+                        <Button variant="danger" onClick={() => handleDeleteUser(user.id)}>
+                          Delete
+                        </Button>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {users.map(user => (
-                      <tr key={user.id}>
-                        <td>{user.id}</td>
-                        <td>{user.fullName}</td>
-                        <td>{user.email}</td>
-                        <td>{user.role}</td>
-                        <td>
-                          <Button variant="primary" onClick={() => handleEditUser(user)}>
-                            Edit
-                          </Button>
-                          <Button variant="danger" onClick={() => handleDeleteUser(user.id)}>
-                            Delete
-                          </Button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                  ))}
+                </tbody>
+              </Table>
             </div>
           )}
         </div>
       </Container>
 
       {/* Product Modal */}
-      <Modal show={showProductModal} onHide={() => {
-        setEditingProduct(null);
-        setShowProductModal(false);
-        resetNewProduct();
-      }}>
+      <Modal show={showProductModal} onHide={() => setShowProductModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>{editingProduct ? 'Edit Product' : 'Create Product'}</Modal.Title>
         </Modal.Header>
@@ -309,7 +346,9 @@ const Admin = () => {
               >
                 <option value="">Select a category</option>
                 {categories.map(category => (
-                  <option key={category.id} value={category.id}>{category.name}</option>
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
                 ))}
               </Form.Control>
             </Form.Group>
@@ -321,11 +360,48 @@ const Admin = () => {
                 onChange={e => setNewProduct({ ...newProduct, status: e.target.checked })}
               />
             </Form.Group>
-            <Form.Group controlId="formProductImages">              <Form.Label>Images</Form.Label>              {newProduct.images.map((image, index) => (                <div key={index} className="d-flex align-items-center mb-2">                  <Form.Control                    type="text"                    value={image.name}                    onChange={(e) => handleImageUrlChange(index, e.target.value)}                    placeholder={`Image ${index + 1} URL`}                  />                  <Button variant="danger" onClick={() => handleRemoveImage(index)} className="ml-2">                    Remove                  </Button>                </div>              ))}              <Button variant="primary" onClick={handleAddImage} className="mt-2">                Add Image              </Button>            </Form.Group>            <Form.Group controlId="formProductSizes">              <Form.Label>Sizes</Form.Label>              {newProduct.sizes.map((size, index) => (                <div key={index} className="d-flex align-items-center mb-2">                  <Form.Control                    type="text"                    value={size}                    onChange={(e) => handleSizeChange(index, e.target.value)}                    placeholder={`Size ${index + 1}`}                  />                  <Button variant="danger" onClick={() => handleRemoveSize(index)} className="ml-2">                    Remove                  </Button>                </div>              ))}              <Button variant="primary" onClick={handleAddSize} className="mt-2">                Add Size              </Button>            </Form.Group>          </Form>        </Modal.Body>        <Modal.Footer>
-          <Button variant="secondary" onClick={() => {
-            setEditingProduct(null);
-            setShowProductModal(false);
-          }}>
+            <Form.Group controlId="formProductImages">
+              <Form.Label>Images</Form.Label>
+              {newProduct.images.map((image, index) => (
+                <div key={index} className="d-flex align-items-center mb-2">
+                  <Form.Control
+                    type="text"
+                    placeholder="Image URL"
+                    value={image.name}
+                    onChange={e => handleImageUrlChange(index, e.target.value)}
+                  />
+                  <Button variant="danger" onClick={() => handleRemoveImage(index)} className="ml-2">
+                    Remove
+                  </Button>
+                </div>
+              ))}
+              <Button variant="secondary" onClick={handleAddImage}>
+                Add Image
+              </Button>
+            </Form.Group>
+            <Form.Group controlId="formProductSizes">
+              <Form.Label>Sizes</Form.Label>
+              {newProduct.sizes.map((size, index) => (
+                <div key={index} className="d-flex align-items-center mb-2">
+                  <Form.Control
+                    type="text"
+                    placeholder="Size"
+                    value={size}
+                    onChange={e => handleSizeChange(index, e.target.value)}
+                  />
+                  <Button variant="danger" onClick={() => handleRemoveSize(index)} className="ml-2">
+                    Remove
+                  </Button>
+                </div>
+              ))}
+              <Button variant="secondary" onClick={handleAddSize}>
+                Add Size
+              </Button>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowProductModal(false)}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleCreateProduct}>
@@ -335,10 +411,7 @@ const Admin = () => {
       </Modal>
 
       {/* User Modal */}
-      <Modal show={showUserModal} onHide={() => {
-        setEditingUser(null);
-        setShowUserModal(false);
-      }}>
+      <Modal show={showUserModal} onHide={() => setShowUserModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>{editingUser ? 'Edit User' : 'Create User'}</Modal.Title>
         </Modal.Header>
@@ -376,6 +449,14 @@ const Admin = () => {
                 onChange={e => setNewUser({ ...newUser, address: e.target.value })}
               />
             </Form.Group>
+            <Form.Group controlId="formUserPhoneNumber">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                type="text"
+                value={newUser.phoneNumber}
+                onChange={e => setNewUser({ ...newUser, phoneNumber: e.target.value })}
+              />
+            </Form.Group>
             <Form.Group controlId="formUserRole">
               <Form.Label>Role</Form.Label>
               <Form.Control
@@ -385,9 +466,10 @@ const Admin = () => {
               >
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
+                <option value="shipper">Shipper</option> {/* Added role */}
               </Form.Control>
             </Form.Group>
-            </Form>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => {
@@ -397,7 +479,7 @@ const Admin = () => {
             Cancel
           </Button>
           <Button variant="primary" onClick={handleCreateUser}>
-            {editingProduct ? 'Update' : 'Create'}
+            {editingUser ? 'Update' : 'Create'}
           </Button>
         </Modal.Footer>
       </Modal>

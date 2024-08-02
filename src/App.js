@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
-import { AuthProvider, useAuth } from './Contexts/AuthContext';
+import { AuthProvider } from './Contexts/AuthContext';
 import Detail from './Pages/Detail';
 import HomePage from './Pages/HomePage';
 import Carts from './Pages/Carts';
@@ -16,6 +16,8 @@ import WishlistPage from './Pages/WishlistPage';
 import Success from './Pages/Success';
 import ManageOrder from './Pages/ManageOrder';
 import OrderDetails from './Pages/OrderDetails';
+import Shipper from './Pages/ShipperPage'; // Import the Shipper component
+
 function App() {
   return (
     <AuthProvider>
@@ -28,20 +30,15 @@ function App() {
           <Route path="/order-success" element={<Success />} />
           <Route path="/manage-order" element={<ManageOrder />} />
           <Route path="/order-details/:id" element={<OrderDetails />} />
-          <Route
-            path="/login"
-            element={<LoginPage />}
-          />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/search" element={<SearchResult />} />
           <Route path="/cart" element={<Carts />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/pro" element={<ProtectedRoute component={Profile} allowedRoles={['user']} />} />
           <Route path="/admin" element={<ProtectedRoute component={AdminPage} allowedRoles={['admin']} />} />
-          <Route
-            path="*"
-            element={<Navigate to="/" />}
-          />
+          <Route path="/shipper" element={<ProtectedRoute component={Shipper} allowedRoles={['shipper']} />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
