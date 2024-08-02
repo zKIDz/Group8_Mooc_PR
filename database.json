@@ -203,27 +203,7 @@
       "phoneNumber": "0966171123",
       "role": "user"
     },
-    {
-      "id": "3e77",
-      "fullName": "tran van long",
-      "email": "oscarcitojas130424@gmail.com",
-      "password": "123456",
-      "role": "user"
-    },
-    {
-      "id": "b533",
-      "fullName": "VanTruong",
-      "email": "iloveyouxg123@gmail.com",
-      "password": "123456",
-      "role": "user"
-    },
-    {
-      "id": "819c",
-      "fullName": "VanTruongLong",
-      "email": "iloveyouxg1234@gmail.com",
-      "password": "123456",
-      "role": "user"
-    },
+   
     {
       "id": "15a3",
       "fullName": "quynh",
