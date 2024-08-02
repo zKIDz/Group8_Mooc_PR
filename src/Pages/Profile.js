@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Profile.css';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
+
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
@@ -12,10 +13,11 @@ const Profile = () => {
     newPassword: '',
     confirmPassword: '',
   });
+  const [activeTab, setActiveTab] = useState('profile');
 
   useEffect(() => {
     const fetchUser = async () => {
-      const email = localStorage.getItem("email");
+      const email = localStorage.getItem('email');
       try {
         const response = await axios.get(`http://localhost:9999/users?email=${email}`);
         if (response.data.length > 0) {
@@ -52,7 +54,7 @@ const Profile = () => {
   };
 
   const handlePasswordUpdate = async () => {
-    if (!user) return; 
+    if (!user) return;
 
     const { oldPassword, newPassword, confirmPassword } = passwords;
 
@@ -84,85 +86,97 @@ const Profile = () => {
     }
   };
 
+  const renderTabContent = () => {
+    if (activeTab === 'profile') {
+      return (
+        <div className="tab-content">
+          <label htmlFor="fullName">Full Name:</label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            value={updatedUser.fullName || ''}
+            onChange={handleChange}
+          />
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={updatedUser.email || ''}
+            onChange={handleChange}
+            readOnly
+          />
+          <label htmlFor="address">Address:</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            value={updatedUser.address || ''}
+            onChange={handleChange}
+          />
+          <label htmlFor="phoneNumber">Phone Number:</label>
+          <input
+            type="text"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={updatedUser.phoneNumber || ''}
+            onChange={handleChange}
+          />
+          <button className="button" onClick={handleSave}>Save Changes</button>
+        </div>
+      );
+    } else if (activeTab === 'password') {
+      return (
+        <div className="tab-content">
+          <h2>Change Password</h2>
+          <label htmlFor="oldPassword">Old Password:</label>
+          <input
+            type="password"
+            id="oldPassword"
+            name="oldPassword"
+            value={passwords.oldPassword}
+            onChange={handlePasswordChange}
+          />
+          <label htmlFor="newPassword">New Password:</label>
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            value={passwords.newPassword}
+            onChange={handlePasswordChange}
+          />
+          <label htmlFor="confirmPassword">Confirm New Password:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={passwords.confirmPassword}
+            onChange={handlePasswordChange}
+          />
+          <button className="button" onClick={handlePasswordUpdate}>Change Password</button>
+        </div>
+      );
+    }
+  };
+
   if (error) return <p className="error-message">{error}</p>;
 
   return (
     <div>
-      <Header/>
+      <Header />
       <div className="profile-container">
-      <div className="profile-header">
-        <h1>User Profile</h1>
+        <div className="profile-header">
+          <h1>User Profile</h1>
+        </div>
+        <div className="tabs">
+          <div className={`tab ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>Edit Profile</div>
+          <div className={`tab ${activeTab === 'password' ? 'active' : ''}`} onClick={() => setActiveTab('password')}>Change Password</div>
+        </div>
+        {renderTabContent()}
       </div>
-      <div className="profile-info">
-        <label htmlFor="fullName">Full Name:</label>
-        <input
-          type="text"
-          id="fullName"
-          name="fullName"
-          value={updatedUser.fullName || ''}
-          onChange={handleChange}
-        />
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={updatedUser.email || ''}
-          onChange={handleChange}
-          readOnly
-        />
-        <label htmlFor="address">Address:</label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          value={updatedUser.address || ''}
-          onChange={handleChange}
-        />
-        <label htmlFor="phoneNumber">Phone Number:</label>
-        <input
-          type="text"
-          id="phoneNumber"
-          name="phoneNumber"
-          value={updatedUser.phoneNumber || ''}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="change-password">
-        <h2>Change Password</h2>
-        <label htmlFor="oldPassword">Old Password:</label>
-        <input
-          type="password"
-          id="oldPassword"
-          name="oldPassword"
-          value={passwords.oldPassword}
-          onChange={handlePasswordChange}
-        />
-        <label htmlFor="newPassword">New Password:</label>
-        <input
-          type="password"
-          id="newPassword"
-          name="newPassword"
-          value={passwords.newPassword}
-          onChange={handlePasswordChange}
-        />
-        <label htmlFor="confirmPassword">Confirm New Password:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={passwords.confirmPassword}
-          onChange={handlePasswordChange}
-        />
-        <button onClick={handlePasswordUpdate}>Change Password</button>
-      </div>
-      <div className="profile-actions">
-        <button onClick={handleSave}>Save Changes</button>
-      </div>
+      <Footer />
     </div>
-    <Footer/>
-    </div>
-    
   );
 };
 
