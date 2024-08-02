@@ -19,27 +19,34 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:9999/users?email=${email}&password=${password}`);
+      const response = await axios.get(`http://localhost:9999/users?email=${email}`);
+      
       if (response.data.length > 0) {
         const user = response.data[0];
-        localStorage.setItem("token", "fake-jwt-token");
-        localStorage.setItem("role", user.role);
-        localStorage.setItem("email", user.email);
-        localStorage.setItem("userId", user.id); 
-        login(user.role, user.email, user.id);
-        setSuccessMessage("Login successful!");
-        setError("");
-        setTimeout(() => {
-          if (user.role === "admin") {
-            navigate("/admin");
-          } else if (user.role === "shipper") {
-            navigate("/shipper");
-          } else {
-            navigate("/pro");
-          }
-        }, 500);
+        if (user.password === password) {
+          localStorage.setItem("token", "fake-jwt-token");
+          localStorage.setItem("role", user.role);
+          localStorage.setItem("email", user.email);
+          localStorage.setItem("userId", user.id); 
+          login(user.role, user.email, user.id);
+          setSuccessMessage("Login successful!");
+          setError("");
+          
+          setTimeout(() => {
+            if (user.role === "admin") {
+              navigate("/admin");
+            } else if (user.role === "shipper") {
+              navigate("/shipper");
+            } else {
+              navigate("/pro");
+            }
+          }, 500);
+        } else {
+          setError("Invalid email or password");
+          setSuccessMessage("");
+        }
       } else {
-        setError("Invalid email or password");
+        setError("No user found with this email.");
         setSuccessMessage("");
       }
     } catch (error) {
@@ -49,33 +56,25 @@ const Login = () => {
     }
   };
   
-  
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     try {
-      // Check if the user exists
       const response = await axios.get(`http://localhost:9999/users?email=${email}`);
       if (response.data.length > 0) {
-        // Generate a simple OTP (in a real scenario, this would be more secure)
         const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
         
-        // Send email using EmailJS
         const emailParams = {
-
           to_email: email,
           otp: generatedOTP,
         };
-        console.log(emailParams)
         await emailjs.send(
-          'service_3aexhrc',  // Replace with your EmailJS service ID
-          'template_b1bghvq', // Replace with your EmailJS template ID
+          'service_3aexhrc',
+          'template_b1bghvq',
           emailParams,
-          
-          '5jh3QPW6T52yhGzN4'      // Replace with your EmailJS user ID
+          '5jh3QPW6T52yhGzN4'
         );
         
-        // Store the OTP with the user (in a real scenario, this would be hashed and stored securely)
         await axios.patch(`http://localhost:9999/users/${response.data[0].id}`, { otp: generatedOTP });
         
         setOtpSent(true);
@@ -96,10 +95,9 @@ const Login = () => {
       if (response.data.length > 0) {
         const user = response.data[0];
         if (user.otp === otp) {
-          // Update the password
           await axios.patch(`http://localhost:9999/users/${user.id}`, { 
             password: newPassword,
-            otp: null // Clear the OTP
+            otp: null
           });
           setSuccessMessage("Password reset successful!");
           setShowForgotPassword(false);
@@ -238,4 +236,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

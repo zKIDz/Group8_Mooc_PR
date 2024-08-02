@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Table, Button, Modal, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import './Admin.css';
 
 const Admin = () => {
@@ -199,7 +198,6 @@ const Admin = () => {
   return (
     <div>
       <Container className="my-5 dashboard-container">
-        <Link to="/" className="btn btn-secondary mb-3">Back to Home</Link>
         <div className="sidebar">
           <div className="sidebar-header">
             <h3>Dashboard</h3>
@@ -218,7 +216,7 @@ const Admin = () => {
           {activePage === 'products' && (
             <div id="products">
               <h2>Manage Products</h2>
-              <Button variant="primary" onClick={() => {
+              <Button className="btn-custom" onClick={() => {
                 setEditingProduct(null);
                 resetNewProduct();
                 setShowProductModal(true);
@@ -245,10 +243,10 @@ const Admin = () => {
                       <td>{categories.find(c => c.id === product.cid)?.name || 'N/A'}</td>
                       <td>{product.status ? 'In Stock' : 'Out of Stock'}</td>
                       <td>
-                        <Button variant="primary" onClick={() => handleEditProduct(product)}>
+                        <Button className="btn-custom" onClick={() => handleEditProduct(product)}>
                           Edit
                         </Button>
-                        <Button variant="danger" onClick={() => handleDeleteProduct(product.id)}>
+                        <Button className="btn-custom btn-danger" onClick={() => handleDeleteProduct(product.id)}>
                           Delete
                         </Button>
                       </td>
@@ -262,7 +260,7 @@ const Admin = () => {
           {activePage === 'users' && (
             <div id="users">
               <h2>Manage Users</h2>
-              <Button variant="primary" onClick={() => {
+              <Button className="btn-custom" onClick={() => {
                   setEditingUser(null);
                   setNewUser({
                     fullName: '',
@@ -283,7 +281,7 @@ const Admin = () => {
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Address</th>
-                    <th>Phone Number</th> {/* Added Phone Number */}
+                    <th>Phone Number</th>
                     <th>Role</th>
                     <th>Actions</th>
                   </tr>
@@ -295,13 +293,13 @@ const Admin = () => {
                       <td>{user.fullName}</td>
                       <td>{user.email}</td>
                       <td>{user.address}</td>
-                      <td>{user.phoneNumber}</td> {/* Display Phone Number */}
+                      <td>{user.phoneNumber}</td>
                       <td>{user.role}</td>
                       <td>
-                        <Button variant="primary" onClick={() => handleEditUser(user)}>
+                        <Button className="btn-custom" onClick={() => handleEditUser(user)}>
                           Edit
                         </Button>
-                        <Button variant="danger" onClick={() => handleDeleteUser(user.id)}>
+                        <Button className="btn-custom btn-danger" onClick={() => handleDeleteUser(user.id)}>
                           Delete
                         </Button>
                       </td>
@@ -314,37 +312,48 @@ const Admin = () => {
         </div>
       </Container>
 
-      {/* Product Modal */}
       <Modal show={showProductModal} onHide={() => setShowProductModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>{editingProduct ? 'Edit Product' : 'Create Product'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formProductName">
+            <Form.Group controlId="productName">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 value={newProduct.name}
-                onChange={e => setNewProduct({ ...newProduct, name: e.target.value })}
+                onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
               />
             </Form.Group>
-            <Form.Group controlId="formProductPrice">
+
+            <Form.Group controlId="productPrice">
               <Form.Label>Price</Form.Label>
               <Form.Control
                 type="number"
                 value={newProduct.price}
-                onChange={e => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
+                onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
               />
             </Form.Group>
-            <Form.Group controlId="formProductCategory">
+
+            <Form.Group controlId="productStatus">
+              <Form.Label>Status</Form.Label>
+              <Form.Check
+                type="checkbox"
+                label="In Stock"
+                checked={newProduct.status}
+                onChange={(e) => setNewProduct({ ...newProduct, status: e.target.checked })}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="productCategory">
               <Form.Label>Category</Form.Label>
               <Form.Control
                 as="select"
                 value={newProduct.cid}
-                onChange={e => setNewProduct({ ...newProduct, cid: e.target.value })}
+                onChange={(e) => setNewProduct({ ...newProduct, cid: e.target.value })}
               >
-                <option value="">Select a category</option>
+                <option value="">Select Category</option>
                 {categories.map(category => (
                   <option key={category.id} value={category.id}>
                     {category.name}
@@ -352,136 +361,112 @@ const Admin = () => {
                 ))}
               </Form.Control>
             </Form.Group>
-            <Form.Group controlId="formProductStatus">
-              <Form.Check
-                type="checkbox"
-                label="In Stock"
-                checked={newProduct.status}
-                onChange={e => setNewProduct({ ...newProduct, status: e.target.checked })}
-              />
-            </Form.Group>
-            <Form.Group controlId="formProductImages">
+
+            <Form.Group controlId="productImages">
               <Form.Label>Images</Form.Label>
               {newProduct.images.map((image, index) => (
-                <div key={index} className="d-flex align-items-center mb-2">
+                <div key={index} className="d-flex mb-2">
                   <Form.Control
                     type="text"
-                    placeholder="Image URL"
                     value={image.name}
-                    onChange={e => handleImageUrlChange(index, e.target.value)}
+                    onChange={(e) => handleImageUrlChange(index, e.target.value)}
                   />
-                  <Button variant="danger" onClick={() => handleRemoveImage(index)} className="ml-2">
-                    Remove
-                  </Button>
+                  <Button className="btn-custom btn-danger" onClick={() => handleRemoveImage(index)}>Remove</Button>
                 </div>
               ))}
-              <Button variant="secondary" onClick={handleAddImage}>
-                Add Image
-              </Button>
+              <Button className="btn-custom" onClick={handleAddImage}>Add Image</Button>
             </Form.Group>
-            <Form.Group controlId="formProductSizes">
+
+            <Form.Group controlId="productSizes">
               <Form.Label>Sizes</Form.Label>
               {newProduct.sizes.map((size, index) => (
-                <div key={index} className="d-flex align-items-center mb-2">
+                <div key={index} className="d-flex mb-2">
                   <Form.Control
                     type="text"
-                    placeholder="Size"
                     value={size}
-                    onChange={e => handleSizeChange(index, e.target.value)}
+                    onChange={(e) => handleSizeChange(index, e.target.value)}
                   />
-                  <Button variant="danger" onClick={() => handleRemoveSize(index)} className="ml-2">
-                    Remove
-                  </Button>
+                  <Button className="btn-custom btn-danger" onClick={() => handleRemoveSize(index)}>Remove</Button>
                 </div>
               ))}
-              <Button variant="secondary" onClick={handleAddSize}>
-                Add Size
-              </Button>
+              <Button className="btn-custom" onClick={handleAddSize}>Add Size</Button>
             </Form.Group>
+
+            <Button className="btn-custom" onClick={handleCreateProduct}>
+              {editingProduct ? 'Save Changes' : 'Create Product'}
+            </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowProductModal(false)}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={handleCreateProduct}>
-            {editingProduct ? 'Update' : 'Create'}
-          </Button>
-        </Modal.Footer>
       </Modal>
 
-      {/* User Modal */}
       <Modal show={showUserModal} onHide={() => setShowUserModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>{editingUser ? 'Edit User' : 'Create User'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formUserName">
+            <Form.Group controlId="userName">
               <Form.Label>Full Name</Form.Label>
               <Form.Control
                 type="text"
                 value={newUser.fullName}
-                onChange={e => setNewUser({ ...newUser, fullName: e.target.value })}
+                onChange={(e) => setNewUser({ ...newUser, fullName: e.target.value })}
               />
             </Form.Group>
-            <Form.Group controlId="formUserEmail">
+
+            <Form.Group controlId="userEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 value={newUser.email}
-                onChange={e => setNewUser({ ...newUser, email: e.target.value })}
+                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
               />
             </Form.Group>
-            <Form.Group controlId="formUserPassword">
+
+            <Form.Group controlId="userPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
                 value={newUser.password}
-                onChange={e => setNewUser({ ...newUser, password: e.target.value })}
+                onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
               />
             </Form.Group>
-            <Form.Group controlId="formUserAddress">
+
+            <Form.Group controlId="userAddress">
               <Form.Label>Address</Form.Label>
               <Form.Control
                 type="text"
                 value={newUser.address}
-                onChange={e => setNewUser({ ...newUser, address: e.target.value })}
+                onChange={(e) => setNewUser({ ...newUser, address: e.target.value })}
               />
             </Form.Group>
-            <Form.Group controlId="formUserPhoneNumber">
+
+            <Form.Group controlId="userPhoneNumber">
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 type="text"
                 value={newUser.phoneNumber}
-                onChange={e => setNewUser({ ...newUser, phoneNumber: e.target.value })}
+                onChange={(e) => setNewUser({ ...newUser, phoneNumber: e.target.value })}
               />
             </Form.Group>
-            <Form.Group controlId="formUserRole">
+
+            <Form.Group controlId="userRole">
               <Form.Label>Role</Form.Label>
               <Form.Control
                 as="select"
                 value={newUser.role}
-                onChange={e => setNewUser({ ...newUser, role: e.target.value })}
+                onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
               >
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
-                <option value="shipper">Shipper</option> {/* Added role */}
               </Form.Control>
             </Form.Group>
+
+            <Button className="btn-custom" onClick={handleCreateUser}>
+              {editingUser ? 'Save Changes' : 'Create User'}
+            </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => {
-            setEditingUser(null);
-            setShowUserModal(false);
-          }}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={handleCreateUser}>
-            {editingUser ? 'Update' : 'Create'}
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );

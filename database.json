@@ -285,6 +285,11 @@
         "1",
         "5"
       ]
+    },
+    {
+      "id": "0aa0",
+      "email": "nguyenluonghuyxg1@gmail.com",
+      "productIds": []
     }
   ],
   "carts": [
@@ -327,7 +332,7 @@
     {
       "id": "2",
       "customerId": "6d53",
-      "status": false,
+      "status": true,
       "total": 190,
       "orderItems": [
         {

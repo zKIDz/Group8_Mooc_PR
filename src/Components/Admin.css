@@ -1,78 +1,80 @@
-/* Admin.css */
-
 .dashboard-container {
-    display: flex;
-    height: 100%;
-  }
-  
-  /* Sidebar styling */
-  .sidebar {
-    width: 250px;
-    background-color: #6c63ff;
-    color: white;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .sidebar-header {
-    padding: 20px;
-    font-size: 1.5rem;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .sidebar-menu {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar-menu li {
-    padding: 15px 20px;
-  }
-  
-  .sidebar-menu li a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    display: block;
-  }
-  
-  .sidebar-menu li:hover,
-  .sidebar-menu li a:hover {
-    background-color: #514eb6;
-  }
-  
-  /* Main content styling */
-  .main-content {
-    flex-grow: 1;
-    background-color: #f4f5fa;
-    padding: 20px;
-    overflow-y: auto;
-  }
-  
-  .main-content h2 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .main-content .btn-primary {
-    background-color: #6c63ff;
-    border-color: #6c63ff;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-  }
-  
-  .main-content .btn-primary:hover {
-    background-color: #514eb6;
-    border-color: #514eb6;
-  }
-  
-  .main-content .table {
-    margin-top: 20px;
-  }
-  
-  #products, #users {
-    margin-top: 40px;
-  }
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px;
+}
+
+.sidebar-header {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  margin: 10px 0;
+}
+
+.sidebar-menu li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar-menu li a:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.btn-custom {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.btn-custom:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
+
+.table th {
+  background-color: #f8f9fa;
+}
+
+.table thead th {
+  background-color: #e9ecef;
+}
+
+.table tbody tr:nth-of-type(odd) {
+  background-color: #f2f2f2;
+}
