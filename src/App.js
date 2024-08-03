@@ -29,7 +29,8 @@ function App() {
           <Route path="/product/:id" element={<Detail />} />
           <Route path="/verify-order" element={<VerifyOrder />} />
           <Route path="/order-success" element={<Success />} />
-          <Route path="/manage-order" element={<ManageOrder />} />
+          {/* <Route path="/manage-order" element={<ManageOrder />} /> */}
+          <Route path="/manage-order" element={<ProtectedRoute component={ManageOrder} allowedRoles={['user','shipper','admin']} />} />
           <Route path="/order-details/:id" element={<OrderDetails />} />
 
           <Route

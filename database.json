@@ -206,7 +206,9 @@
       "fullName": "VanTruong",
       "email": "iloveyouxg123@gmail.com",
       "password": "123456",
-      "role": "user"
+      "role": "user",
+      "address": "Xuan Giang",
+      "phoneNumber": "0866944804"
     },
     {
       "id": "819c",
@@ -214,7 +216,8 @@
       "email": "iloveyouxg1234@gmail.com",
       "password": "123456",
       "phoneNumber": "0966171123",
-      "role": "user"
+      "role": "user",
+      "address": "Son La"
     },
     {
       "id": "15a3",
@@ -572,6 +575,32 @@
         {
           "pid": "3",
           "size": "39",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "213f",
+      "customerId": "819c",
+      "status": "false",
+      "total": 170,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "XL",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "a2ff",
+      "customerId": "819c",
+      "status": "false",
+      "total": 150,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "XL",
           "quantity": 1
         }
       ]
