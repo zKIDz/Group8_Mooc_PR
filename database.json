@@ -188,24 +188,19 @@
       "name": "nguyen hao",
       "email": "haonguyen493@gmail.com",
       "address": "123 HCm Street, City, Country",
-      "phone": "123456789",
-      "password": "123456",
-      "role": "user",
       "phoneNumber": "0966171568",
       "password": "haonguyen493@gmail.com",
       "role": "user",
       "otp": null,
       "fullName": "Nguyễn Mạnh Hào"
-
     },
     {
       "id": "382a",
-      "name": "dang1",
+      "fullName": "dang1",
       "email": "dang@gmail.com",
       "password": "123456",
       "address": "123 HCm Street, City, Country",
-
-      "phone": "123456789",
+      "phoneNumber": "123456789",
       "role": "user"
     },
     {
@@ -227,9 +222,7 @@
       "fullName": "VanTruongLong",
       "email": "iloveyouxg1234@gmail.com",
       "password": "123456",
-
       "phoneNumber": "0966171123",
-
       "role": "user"
     },
     {
@@ -289,10 +282,8 @@
       "id": "0116",
       "email": "haonguyen493@gmail.com",
       "productIds": [
-
         "1",
         "5"
-
       ]
     },
     {
@@ -307,7 +298,6 @@
       "id": "0ac3",
       "email": "iloveyouxg1234@gmail.com",
       "productIds": []
-
     },
     {
       "id": "7fcf",
@@ -318,204 +308,215 @@
       ]
     }
   ],
-  
-    "carts": [
-      {
-        "id": "1",
-        "userId": "6d53",
-        "cartItems": [
-          {
-            "pid": "4",
-            "size": "M",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "02f4",
-        "userId": "382a",
-        "cartItems": [
-          {
-            "pid": "5",
-            "size": "M",
-            "quantity": 1
-          },
-          {
-            "pid": "4",
-            "size": "M",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "03e2",
-        "userId": "382a",
-        "email": "quynh@gmail.com",
-        "cartItems": [
-          {
-            "pid": "1",
-            "size": "M",
-            "quantity": 2
-          },
-          {
-            "pid": "4",
-            "size": "L",
-            "quantity": 1
-          }
-        ]
-      }
-    ],
-    "orders": [
-      {
-        "id": "1",
-        "customerId": "6d53",
-        "status": true,
-        "total": 470,
-        "orderItems": [
-          {
-            "pid": "1",
-            "size": "M",
-            "quantity": 2
-          },
-          {
-            "pid": "4",
-            "size": "L",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "2",
-        "customerId": "6d53",
-        "status": false,
-        "total": 190,
-        "orderItems": [
-          {
-            "pid": "3",
-            "size": "39",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "3",
-        "customerId": "382a",
-        "status": true,
-        "total": 170,
-        "orderItems": [
-          {
-            "pid": "4",
-            "size": "M",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "3e7e",
-        "customerId": "6d53",
-        "status": true,
-        "total": 170,
-        "orderItems": [
-          {
-            "pid": "4",
-            "size": "M",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "5121",
-        "customerId": "382a",
-        "status": false,
-        "total": 190,
-        "orderItems": [
-          {
-            "pid": "3",
-            "size": "38",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "2278",
-        "customerId": "6d53",
-        "status": false,
-        "total": 150,
-        "orderItems": [
-          {
-            "pid": "1",
-            "size": "M",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "b49c",
-        "customerId": "6d53",
-        "status": false,
-        "total": 170,
-        "orderItems": [
-          {
-            "pid": "4",
-            "size": "M",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "eb83",
-        "customerId": "6d53",
-        "status": false,
-        "total": 150,
-        "orderItems": [
-          {
-            "pid": "1",
-            "size": "M",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "2274",
-        "customerId": "6d53",
-        "status": false,
-        "total": 170,
-        "orderItems": [
-          {
-            "pid": "4",
-            "size": "L",
-            "quantity": 1
-          }
-        ]
-      },
-      {
-        "id": "45df",
-        "customerId": "6d53",
-        "status": true,
-        "total": 660,
-        "orderItems": [
-          {
-            "pid": "4",
-            "size": "S",
-            "quantity": 1
-          },
-          {
-            "pid": "4",
-            "size": "L",
-            "quantity": 1
-          },
-          {
-            "pid": "1",
-            "size": "M",
-            "quantity": 1
-          },
-          {
-            "pid": "5",
-            "size": "M",
-            "quantity": 1
-          }
-        ]
-      }
-    ]
-  }
-  
+  "carts": [
+    {
+      "id": "1",
+      "userId": "6d53",
+      "cartItems": [
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "02f4",
+      "userId": "382a",
+      "cartItems": [
+        {
+          "pid": "5",
+          "size": "M",
+          "quantity": 1
+        },
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "03e2",
+      "userId": "382a",
+      "email": "quynh@gmail.com",
+      "cartItems": [
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 2
+        },
+        {
+          "pid": "4",
+          "size": "L",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "customerId": "6d53",
+      "status": true,
+      "total": 470,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 2
+        },
+        {
+          "pid": "4",
+          "size": "L",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "customerId": "6d53",
+      "status": false,
+      "total": 190,
+      "orderItems": [
+        {
+          "pid": "3",
+          "size": "39",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "customerId": "382a",
+      "status": true,
+      "total": 170,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "3e7e",
+      "customerId": "6d53",
+      "status": true,
+      "total": 170,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "5121",
+      "customerId": "382a",
+      "status": false,
+      "total": 190,
+      "orderItems": [
+        {
+          "pid": "3",
+          "size": "38",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "2278",
+      "customerId": "6d53",
+      "status": false,
+      "total": 150,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "b49c",
+      "customerId": "6d53",
+      "status": false,
+      "total": 170,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "eb83",
+      "customerId": "6d53",
+      "status": false,
+      "total": 150,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "2274",
+      "customerId": "6d53",
+      "status": false,
+      "total": 170,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "L",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "45df",
+      "customerId": "6d53",
+      "status": true,
+      "total": 660,
+      "orderItems": [
+        {
+          "pid": "4",
+          "size": "S",
+          "quantity": 1
+        },
+        {
+          "pid": "4",
+          "size": "L",
+          "quantity": 1
+        },
+        {
+          "pid": "1",
+          "size": "M",
+          "quantity": 1
+        },
+        {
+          "pid": "5",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "b066",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 150,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "S",
+          "quantity": 1
+        }
+      ]
+    }
+  ]
+}

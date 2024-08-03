@@ -22,9 +22,9 @@ const CheckOut = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
             setFormData({
-                fullName: user.name,
+                fullName: user.fullName,
                 email: user.email,
-                phone: user.phone,
+                phone: user.phoneNumber,
                 address: user.address || '',
             });
         } else {

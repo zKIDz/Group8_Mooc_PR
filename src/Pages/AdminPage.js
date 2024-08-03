@@ -2,12 +2,13 @@
 import React from 'react';
 import Header from "../Components/Header";
 import Admin from "../Components/Admin"
+import Footer from '../Components/Footer';
 const AdminPage = () => {
   return (
     <div>
-      <h1>Admin Page</h1>
       <Header />
       <Admin />
+      <Footer />
     </div>
     
   );
