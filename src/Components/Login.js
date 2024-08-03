@@ -33,15 +33,6 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(user));
         setSuccessMessage("Login successful!");
         setError("");
-
-        setTimeout(() => {
-          if (user.role === "admin") {
-            navigate("/admin");
-          } else {
-            navigate("/pro");
-          }
-        }, 500); // Redirect after 0.5 seconds
-
         if (user.password === password) {
           localStorage.setItem("token", "fake-jwt-token");
           localStorage.setItem("role", user.role);
