@@ -196,10 +196,32 @@
     },
     {
       "id": "382a",
-      "name": "dang1",
+      "fullName": "dang1",
       "email": "dang@gmail.com",
       "password": "123456",
       "address": "123 HCm Street, City, Country",
+      "phoneNumber": "123456789",
+      "role": "user"
+    },
+    {
+      "id": "3e77",
+      "fullName": "tran van long",
+      "email": "oscarcitojas130424@gmail.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "b533",
+      "fullName": "VanTruong",
+      "email": "iloveyouxg123@gmail.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "819c",
+      "fullName": "VanTruongLong",
+      "email": "iloveyouxg1234@gmail.com",
+      "password": "123456",
       "phoneNumber": "0966171123",
       "role": "user"
     },
@@ -260,9 +282,8 @@
       "id": "0116",
       "email": "haonguyen493@gmail.com",
       "productIds": [
-        "5",
         "1",
-        "4"
+        "5"
       ]
     },
     {
@@ -286,11 +307,38 @@
         "5"
       ]
     }
-    
   ],
   "carts": [
     {
       "id": "1",
+      "userId": "6d53",
+      "cartItems": [
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "02f4",
+      "userId": "382a",
+      "cartItems": [
+        {
+          "pid": "5",
+          "size": "M",
+          "quantity": 1
+        },
+        {
+          "pid": "4",
+          "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "03e2",
+      "userId": "382a",
       "email": "quynh@gmail.com",
       "cartItems": [
         {
@@ -367,7 +415,7 @@
     {
       "id": "5121",
       "customerId": "382a",
-      "status": "false",
+      "status": false,
       "total": 190,
       "orderItems": [
         {
@@ -380,7 +428,7 @@
     {
       "id": "2278",
       "customerId": "6d53",
-      "status": "false",
+      "status": false,
       "total": 150,
       "orderItems": [
         {
@@ -393,7 +441,7 @@
     {
       "id": "b49c",
       "customerId": "6d53",
-      "status": "false",
+      "status": false,
       "total": 170,
       "orderItems": [
         {
@@ -406,7 +454,7 @@
     {
       "id": "eb83",
       "customerId": "6d53",
-      "status": "false",
+      "status": false,
       "total": 150,
       "orderItems": [
         {
@@ -419,7 +467,7 @@
     {
       "id": "2274",
       "customerId": "6d53",
-      "status": "false",
+      "status": false,
       "total": 170,
       "orderItems": [
         {
@@ -453,6 +501,19 @@
         {
           "pid": "5",
           "size": "M",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "b066",
+      "customerId": "6d53",
+      "status": "false",
+      "total": 150,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "S",
           "quantity": 1
         }
       ]

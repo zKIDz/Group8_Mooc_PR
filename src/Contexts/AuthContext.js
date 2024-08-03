@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
-  const [userId, setUserId] = useState(localStorage.getItem("userId") || ""); // Lấy userId từ localStorage
+  const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
 
   const login = (userRole, userEmail, id) => {
     localStorage.setItem("token", "fake-jwt-token");
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
     setRole(userRole);
     setEmail(userEmail);
-    setUserId(id); // Cập nhật state với userId
+    setUserId(id);
   };
 
   const logout = () => {
@@ -31,7 +31,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, role, email, userId, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, role, email, userId, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

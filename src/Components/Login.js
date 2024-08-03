@@ -23,6 +23,25 @@ const Login = () => {
       
       if (response.data.length > 0) {
         const user = response.data[0];
+
+        console.log("User found:", user);
+
+        localStorage.setItem("token", "fake-jwt-token");
+        localStorage.setItem("role", user.role);
+        localStorage.setItem("email", user.email); // Save email to local storage
+        login(user.role, user.email); // Pass email to login function
+        localStorage.setItem('user', JSON.stringify(user));
+        setSuccessMessage("Login successful!");
+        setError("");
+
+        setTimeout(() => {
+          if (user.role === "admin") {
+            navigate("/admin");
+          } else {
+            navigate("/pro");
+          }
+        }, 500); // Redirect after 0.5 seconds
+
         if (user.password === password) {
           localStorage.setItem("token", "fake-jwt-token");
           localStorage.setItem("role", user.role);
@@ -45,6 +64,7 @@ const Login = () => {
           setError("Invalid email or password");
           setSuccessMessage("");
         }
+
       } else {
         setError("No user found with this email.");
         setSuccessMessage("");

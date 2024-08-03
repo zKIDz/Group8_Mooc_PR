@@ -18,6 +18,7 @@ import ManageOrder from './Pages/ManageOrder';
 import OrderDetails from './Pages/OrderDetails';
 import Shipper from './Pages/ShipperPage'; // Import the Shipper component
 
+
 function App() {
   return (
     <AuthProvider>
@@ -30,6 +31,12 @@ function App() {
           <Route path="/order-success" element={<Success />} />
           <Route path="/manage-order" element={<ManageOrder />} />
           <Route path="/order-details/:id" element={<OrderDetails />} />
+
+          <Route
+            path="/login"
+            element={<LoginPage />}
+          />
+
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/search" element={<SearchResult />} />

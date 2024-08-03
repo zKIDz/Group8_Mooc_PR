@@ -40,7 +40,7 @@ const OrderManagement = () => {
                             <tr key={order.oid}>
                                 <td>{order.id}</td>
                                 <td>${order.total.toFixed(2)}</td>
-                                <td>{order.status === "false" ? "Đang xử lý" : "Hoàn thành"}</td>
+                                <td style={{ fontWeight: 'bold' }}>{order.status === "false" ? <span className="text-danger">Đang xử lý</span> : <span className="text-success">Hoàn thành</span> }</td>
                                 <td>
                                     <Button as={Link} to={`/order-details/${order.id}`} variant="info">
                                         Xem chi tiết
