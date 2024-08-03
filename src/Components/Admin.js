@@ -55,7 +55,6 @@ const Admin = () => {
 
   const handleCreateProduct = () => {
     if (editingProduct) {
-      // Update existing product
       axios.put(`http://localhost:9999/products/${editingProduct.id}`, newProduct)
         .then(response => {
           setProducts(products.map(p => p.id === editingProduct.id ? response.data : p));
@@ -65,7 +64,6 @@ const Admin = () => {
         })
         .catch(error => console.error('Error updating product:', error));
     } else {
-      // Create new product with auto-incrementing id
       const maxId = Math.max(...products.map(p => parseInt(p.id)), 0);
       const newId = (maxId + 1).toString();
       const productWithId = { ...newProduct, id: newId };
@@ -93,7 +91,6 @@ const Admin = () => {
 
   const handleCreateUser = () => {
     if (editingUser) {
-      // Update existing user
       axios.put(`http://localhost:9999/users/${editingUser.id}`, newUser)
         .then(response => {
           setUsers(users.map(u => u.id === editingUser.id ? response.data : u));
@@ -105,12 +102,11 @@ const Admin = () => {
             password: '',
             address: '',
             phoneNumber: '',
-            role: 'user' // Default role
+            role: 'user'
           });
         })
         .catch(error => console.error('Error updating user:', error));
     } else {
-      // Create new user with auto-incrementing id
       const maxId = Math.max(...users.map(u => parseInt(u.id)), 0);
       const newId = (maxId + 1).toString();
       const userWithId = { ...newUser, id: newId };
@@ -124,8 +120,8 @@ const Admin = () => {
             email: '',
             password: '',
             address: '',
-            phoneNumber: '', // Reset phoneNumber
-            role: 'user' // Default role
+            phoneNumber: '',
+            role: 'user'
           });
         })
         .catch(error => console.error('Error creating user:', error));
@@ -239,9 +235,9 @@ const Admin = () => {
                     <tr key={product.id}>
                       <td>{product.id}</td>
                       <td>{product.name}</td>
-                      <td>${product.price}</td>
-                      <td>{categories.find(c => c.id === product.cid)?.name || 'N/A'}</td>
-                      <td>{product.status ? 'In Stock' : 'Out of Stock'}</td>
+                      <td>{product.price}</td>
+                      <td>{product.cid}</td>
+                      <td>{product.status ? 'Active' : 'Inactive'}</td>
                       <td>
                         <Button className="btn-custom" onClick={() => handleEditProduct(product)}>
                           Edit
@@ -261,17 +257,17 @@ const Admin = () => {
             <div id="users">
               <h2>Manage Users</h2>
               <Button className="btn-custom" onClick={() => {
-                  setEditingUser(null);
-                  setNewUser({
-                    fullName: '',
-                    email: '',
-                    password: '',
-                    address: '',
-                    phoneNumber: '', // Reset phoneNumber
-                    role: 'user' // Default role
-                  });
-                  setShowUserModal(true);
-                }}>
+                setEditingUser(null);
+                setNewUser({
+                  fullName: '',
+                  email: '',
+                  password: '',
+                  address: '',
+                  phoneNumber: '',
+                  role: 'user'
+                });
+                setShowUserModal(true);
+              }}>
                 Create User
               </Button>
               <Table striped bordered hover>
@@ -280,8 +276,6 @@ const Admin = () => {
                     <th>ID</th>
                     <th>Full Name</th>
                     <th>Email</th>
-                    <th>Address</th>
-                    <th>Phone Number</th>
                     <th>Role</th>
                     <th>Actions</th>
                   </tr>
@@ -292,10 +286,8 @@ const Admin = () => {
                       <td>{user.id}</td>
                       <td>{user.fullName}</td>
                       <td>{user.email}</td>
-                      <td>{user.address}</td>
-                      <td>{user.phoneNumber}</td>
                       <td>{user.role}</td>
-                      <td>
+                      <td className="btn-custom-container">
                         <Button className="btn-custom" onClick={() => handleEditUser(user)}>
                           Edit
                         </Button>
@@ -318,7 +310,7 @@ const Admin = () => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="productName">
+            <Form.Group controlId="formProductName">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
@@ -326,8 +318,7 @@ const Admin = () => {
                 onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
               />
             </Form.Group>
-
-            <Form.Group controlId="productPrice">
+            <Form.Group controlId="formProductPrice">
               <Form.Label>Price</Form.Label>
               <Form.Control
                 type="number"
@@ -335,18 +326,7 @@ const Admin = () => {
                 onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
               />
             </Form.Group>
-
-            <Form.Group controlId="productStatus">
-              <Form.Label>Status</Form.Label>
-              <Form.Check
-                type="checkbox"
-                label="In Stock"
-                checked={newProduct.status}
-                onChange={(e) => setNewProduct({ ...newProduct, status: e.target.checked })}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="productCategory">
+            <Form.Group controlId="formProductCategory">
               <Form.Label>Category</Form.Label>
               <Form.Control
                 as="select"
@@ -361,8 +341,16 @@ const Admin = () => {
                 ))}
               </Form.Control>
             </Form.Group>
-
-            <Form.Group controlId="productImages">
+            <Form.Group controlId="formProductStatus">
+              <Form.Label>Status</Form.Label>
+              <Form.Check
+                type="checkbox"
+                label="Active"
+                checked={newProduct.status}
+                onChange={(e) => setNewProduct({ ...newProduct, status: e.target.checked })}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductImages">
               <Form.Label>Images</Form.Label>
               {newProduct.images.map((image, index) => (
                 <div key={index} className="d-flex mb-2">
@@ -371,13 +359,12 @@ const Admin = () => {
                     value={image.name}
                     onChange={(e) => handleImageUrlChange(index, e.target.value)}
                   />
-                  <Button className="btn-custom btn-danger" onClick={() => handleRemoveImage(index)}>Remove</Button>
+                  <Button variant="danger" className="ml-2" onClick={() => handleRemoveImage(index)}>Remove</Button>
                 </div>
               ))}
-              <Button className="btn-custom" onClick={handleAddImage}>Add Image</Button>
+              <Button variant="primary" onClick={handleAddImage}>Add Image</Button>
             </Form.Group>
-
-            <Form.Group controlId="productSizes">
+            <Form.Group controlId="formProductSizes">
               <Form.Label>Sizes</Form.Label>
               {newProduct.sizes.map((size, index) => (
                 <div key={index} className="d-flex mb-2">
@@ -386,17 +373,21 @@ const Admin = () => {
                     value={size}
                     onChange={(e) => handleSizeChange(index, e.target.value)}
                   />
-                  <Button className="btn-custom btn-danger" onClick={() => handleRemoveSize(index)}>Remove</Button>
+                  <Button variant="danger" className="ml-2" onClick={() => handleRemoveSize(index)}>Remove</Button>
                 </div>
               ))}
-              <Button className="btn-custom" onClick={handleAddSize}>Add Size</Button>
+              <Button variant="primary" onClick={handleAddSize}>Add Size</Button>
             </Form.Group>
-
-            <Button className="btn-custom" onClick={handleCreateProduct}>
-              {editingProduct ? 'Save Changes' : 'Create Product'}
-            </Button>
           </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowProductModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleCreateProduct}>
+            {editingProduct ? 'Save Changes' : 'Create Product'}
+          </Button>
+        </Modal.Footer>
       </Modal>
 
       <Modal show={showUserModal} onHide={() => setShowUserModal(false)}>
@@ -405,7 +396,7 @@ const Admin = () => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="userName">
+            <Form.Group controlId="formUserFullName">
               <Form.Label>Full Name</Form.Label>
               <Form.Control
                 type="text"
@@ -413,8 +404,7 @@ const Admin = () => {
                 onChange={(e) => setNewUser({ ...newUser, fullName: e.target.value })}
               />
             </Form.Group>
-
-            <Form.Group controlId="userEmail">
+            <Form.Group controlId="formUserEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -422,8 +412,7 @@ const Admin = () => {
                 onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
               />
             </Form.Group>
-
-            <Form.Group controlId="userPassword">
+            <Form.Group controlId="formUserPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
@@ -431,8 +420,7 @@ const Admin = () => {
                 onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
               />
             </Form.Group>
-
-            <Form.Group controlId="userAddress">
+            <Form.Group controlId="formUserAddress">
               <Form.Label>Address</Form.Label>
               <Form.Control
                 type="text"
@@ -440,8 +428,7 @@ const Admin = () => {
                 onChange={(e) => setNewUser({ ...newUser, address: e.target.value })}
               />
             </Form.Group>
-
-            <Form.Group controlId="userPhoneNumber">
+            <Form.Group controlId="formUserPhoneNumber">
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 type="text"
@@ -449,8 +436,7 @@ const Admin = () => {
                 onChange={(e) => setNewUser({ ...newUser, phoneNumber: e.target.value })}
               />
             </Form.Group>
-
-            <Form.Group controlId="userRole">
+            <Form.Group controlId="formUserRole">
               <Form.Label>Role</Form.Label>
               <Form.Control
                 as="select"
@@ -461,12 +447,16 @@ const Admin = () => {
                 <option value="admin">Admin</option>
               </Form.Control>
             </Form.Group>
-
-            <Button className="btn-custom" onClick={handleCreateUser}>
-              {editingUser ? 'Save Changes' : 'Create User'}
-            </Button>
           </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowUserModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleCreateUser}>
+            {editingUser ? 'Save Changes' : 'Create User'}
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

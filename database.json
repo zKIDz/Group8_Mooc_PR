@@ -195,15 +195,6 @@
       "fullName": "Nguyễn Mạnh Hào"
     },
     {
-      "id": "382a",
-      "fullName": "dang1",
-      "email": "dang@gmail.com",
-      "password": "123456",
-      "address": "123 HCm Street, City, Country",
-      "phoneNumber": "123456789",
-      "role": "user"
-    },
-    {
       "id": "3e77",
       "fullName": "tran van long",
       "email": "oscarcitojas130424@gmail.com",
@@ -238,27 +229,11 @@
       "id": "5e9a",
       "name": "Shipman Joe",
       "email": "shipmanjoe@example.com",
-      "password": "ship1234",
+      "password": "123456",
       "address": "456 Delivery Lane, City, Country",
       "phoneNumber": "987654321",
-      "role": "shipper"
-    },
-    {
-      "id": "NaN",
-      "fullName": "hien",
-      "email": "hien@gmail.com",
-      "password": "123456",
-      "address": "ba dinh HN",
-      "phoneNumber": "0966171568",
-      "role": "user"
-    },
-    {
-      "id": "NaN",
-      "fullName": "hai",
-      "email": "hai@gmail.com",
-      "password": "123456",
-      "address": "Hoang cau",
-      "role": "user"
+      "role": "shipper",
+      "fullName": "anh shipper"
     },
     {
       "id": "5ade",
@@ -322,7 +297,7 @@
     },
     {
       "id": "02f4",
-      "userId": "382a",
+      "userId": null,
       "cartItems": [
         {
           "pid": "5",
@@ -338,7 +313,7 @@
     },
     {
       "id": "03e2",
-      "userId": "382a",
+      "userId": null,
       "email": "quynh@gmail.com",
       "cartItems": [
         {
@@ -514,6 +489,37 @@
         {
           "pid": "1",
           "size": "S",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "2bff",
+      "customerId": "1",
+      "status": "false",
+      "total": 360,
+      "orderItems": [
+        {
+          "pid": "3",
+          "size": "39",
+          "quantity": 1
+        },
+        {
+          "pid": "4",
+          "size": "L",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "096b",
+      "customerId": "5ade",
+      "status": false,
+      "total": 150,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "L",
           "quantity": 1
         }
       ]

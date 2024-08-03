@@ -42,7 +42,7 @@ function App() {
           <Route path="/search" element={<SearchResult />} />
           <Route path="/cart" element={<Carts />} />
           <Route path="/wishlist" element={<WishlistPage />} />
-          <Route path="/pro" element={<ProtectedRoute component={Profile} allowedRoles={['user']} />} />
+          <Route path="/pro" element={<ProtectedRoute component={Profile} allowedRoles={['user','shipper']} />} />
           <Route path="/admin" element={<ProtectedRoute component={AdminPage} allowedRoles={['admin']} />} />
           <Route path="/shipper" element={<ProtectedRoute component={Shipper} allowedRoles={['shipper']} />} />
           <Route path="*" element={<Navigate to="/" />} />
