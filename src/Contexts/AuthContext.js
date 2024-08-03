@@ -3,9 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem("token")
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
   const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
@@ -18,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
     setRole(userRole);
     setEmail(userEmail);
-    setUserId(id); 
+    setUserId(id);
   };
 
   const logout = () => {
@@ -29,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setRole("");
     setEmail("");
-    setUserId(""); 
+    setUserId("");
   };
 
   return (
