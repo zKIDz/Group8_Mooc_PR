@@ -445,6 +445,7 @@ const Admin = () => {
               >
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
+                <option value="shipper">Shipper</option>
               </Form.Control>
             </Form.Group>
           </Form>

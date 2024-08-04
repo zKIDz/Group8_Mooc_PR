@@ -176,7 +176,7 @@
   ],
   "users": [
     {
-      "id": "1",
+      "id": "2",
       "name": "john_doe",
       "email": "quanggminh@123.com",
       "password": "123456",
@@ -184,7 +184,7 @@
       "role": "admin"
     },
     {
-      "id": "6d53",
+      "id": "1",
       "name": "nguyen hao",
       "email": "haonguyen493@gmail.com",
       "address": "123 HCm Street, City, Country",
@@ -195,14 +195,14 @@
       "fullName": "Nguyễn Mạnh Hào"
     },
     {
-      "id": "3e77",
+      "id": "3",
       "fullName": "tran van long",
       "email": "oscarcitojas130424@gmail.com",
       "password": "123456",
       "role": "user"
     },
     {
-      "id": "b533",
+      "id": "4",
       "fullName": "VanTruong",
       "email": "iloveyouxg123@gmail.com",
       "password": "123456",
@@ -211,7 +211,7 @@
       "phoneNumber": "0866944804"
     },
     {
-      "id": "819c",
+      "id": "5",
       "fullName": "VanTruongLong",
       "email": "iloveyouxg1234@gmail.com",
       "password": "123456",
@@ -220,7 +220,7 @@
       "address": "Son La"
     },
     {
-      "id": "15a3",
+      "id": "6",
       "fullName": "quynh",
       "email": "quynh@gmail.com",
       "password": "123456",
@@ -229,7 +229,7 @@
       "role": "user"
     },
     {
-      "id": "5e9a",
+      "id": "7",
       "name": "Shipman Joe",
       "email": "shipmanjoe@example.com",
       "password": "123456",
@@ -239,12 +239,21 @@
       "fullName": "anh shipper"
     },
     {
-      "id": "5ade",
+      "id": "8",
       "fullName": "Nguyễn Lương Huy",
       "email": "nguyenluonghuyxg1@gmail.com",
       "password": "123456",
       "address": "Xuan Giang ",
       "phoneNumber": "0866944804",
+      "role": "user"
+    },
+    {
+      "id": "9",
+      "fullName": "manh hao",
+      "email": "haonguyen49@gmail.com",
+      "password": "123456",
+      "address": "hoang cau",
+      "phoneNumber": "0966171568",
       "role": "user"
     }
   ],
@@ -284,12 +293,20 @@
         "1",
         "5"
       ]
+    },
+    {
+      "id": "1ad6",
+      "email": "haonguyen49@gmail.com",
+      "productIds": [
+        "1",
+        "4"
+      ]
     }
   ],
   "carts": [
     {
       "id": "1",
-      "userId": "6d53",
+      "userId": "1",
       "cartItems": [
         {
           "pid": "4",
@@ -335,8 +352,8 @@
   "orders": [
     {
       "id": "1",
-      "customerId": "6d53",
-      "status": true,
+      "customerId": "1",
+      "status": "true",
       "total": 470,
       "orderItems": [
         {
@@ -353,8 +370,8 @@
     },
     {
       "id": "2",
-      "customerId": "6d53",
-      "status": false,
+      "customerId": "1",
+      "status": "true",
       "total": 190,
       "orderItems": [
         {
@@ -365,48 +382,22 @@
       ]
     },
     {
-      "id": "3",
-      "customerId": "382a",
-      "status": true,
-      "total": 170,
-      "orderItems": [
-        {
-          "pid": "4",
-          "size": "M",
-          "quantity": 1
-        }
-      ]
-    },
-    {
       "id": "3e7e",
-      "customerId": "6d53",
-      "status": true,
+      "customerId": "1",
+      "status": "true",
       "total": 170,
       "orderItems": [
         {
           "pid": "4",
           "size": "M",
-          "quantity": 1
-        }
-      ]
-    },
-    {
-      "id": "5121",
-      "customerId": "382a",
-      "status": false,
-      "total": 190,
-      "orderItems": [
-        {
-          "pid": "3",
-          "size": "38",
           "quantity": 1
         }
       ]
     },
     {
       "id": "2278",
-      "customerId": "6d53",
-      "status": false,
+      "customerId": "1",
+      "status": "false",
       "total": 150,
       "orderItems": [
         {
@@ -418,8 +409,8 @@
     },
     {
       "id": "b49c",
-      "customerId": "6d53",
-      "status": false,
+      "customerId": "1",
+      "status": "false",
       "total": 170,
       "orderItems": [
         {
@@ -431,8 +422,8 @@
     },
     {
       "id": "eb83",
-      "customerId": "6d53",
-      "status": false,
+      "customerId": "1",
+      "status": "false",
       "total": 150,
       "orderItems": [
         {
@@ -444,8 +435,8 @@
     },
     {
       "id": "2274",
-      "customerId": "6d53",
-      "status": false,
+      "customerId": "1",
+      "status": "false",
       "total": 170,
       "orderItems": [
         {
@@ -457,8 +448,8 @@
     },
     {
       "id": "45df",
-      "customerId": "6d53",
-      "status": true,
+      "customerId": "1",
+      "status": "false",
       "total": 660,
       "orderItems": [
         {
@@ -485,7 +476,7 @@
     },
     {
       "id": "b066",
-      "customerId": "6d53",
+      "customerId": "1",
       "status": "false",
       "total": 150,
       "orderItems": [
@@ -516,8 +507,8 @@
     },
     {
       "id": "096b",
-      "customerId": "5ade",
-      "status": false,
+      "customerId": "8",
+      "status": "false",
       "total": 150,
       "orderItems": [
         {
@@ -529,7 +520,7 @@
     },
     {
       "id": "fe4b",
-      "customerId": "5ade",
+      "customerId": "8",
       "status": "false",
       "total": 170,
       "orderItems": [
@@ -542,7 +533,7 @@
     },
     {
       "id": "1751",
-      "customerId": "5ade",
+      "customerId": "8",
       "status": "false",
       "total": 190,
       "orderItems": [
@@ -555,7 +546,7 @@
     },
     {
       "id": "ac35",
-      "customerId": "6d53",
+      "customerId": "1",
       "status": "false",
       "total": 170,
       "orderItems": [
@@ -568,7 +559,7 @@
     },
     {
       "id": "b2b2",
-      "customerId": "5e9a",
+      "customerId": "8",
       "status": "false",
       "total": 190,
       "orderItems": [
@@ -581,7 +572,7 @@
     },
     {
       "id": "213f",
-      "customerId": "819c",
+      "customerId": "8",
       "status": "false",
       "total": 170,
       "orderItems": [
@@ -594,13 +585,26 @@
     },
     {
       "id": "a2ff",
-      "customerId": "819c",
+      "customerId": "8",
       "status": "false",
       "total": 150,
       "orderItems": [
         {
           "pid": "1",
           "size": "XL",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "266a",
+      "customerId": "9",
+      "status": "false",
+      "total": 150,
+      "orderItems": [
+        {
+          "pid": "1",
+          "size": "S",
           "quantity": 1
         }
       ]

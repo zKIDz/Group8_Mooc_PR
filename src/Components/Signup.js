@@ -8,17 +8,17 @@ const Signup = () => {
     fullName: "",
     email: "",
     password: "",
-    address: "", // Added address field
-    phoneNumber: "", // Added phone number field
+    address: "",
+    phoneNumber: "",
     role: "user",
   });
-  const [PasswordData, setConfirmPassword] = useState({
+  const [passwordData, setPasswordData] = useState({
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let validationErrors = {};
     let isValid = true;
@@ -42,7 +42,7 @@ const Signup = () => {
       isValid = false;
       validationErrors.password = "Password must be at least 6 characters";
     }
-    if (PasswordData.confirmPassword !== formData.password) {
+    if (passwordData.confirmPassword !== formData.password) {
       isValid = false;
       validationErrors.confirmPassword = "Passwords do not match";
     }
@@ -53,7 +53,7 @@ const Signup = () => {
     if (!formData.phoneNumber) {
       isValid = false;
       validationErrors.phoneNumber = "Phone number required";
-    } else if (!/^\d{10}$/.test(formData.phoneNumber)) { // Simple phone number validation
+    } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
       isValid = false;
       validationErrors.phoneNumber = "Phone number must be 10 digits";
     }
@@ -61,22 +61,34 @@ const Signup = () => {
     setErrors(validationErrors);
 
     if (isValid) {
-      axios.post('http://localhost:9999/users', formData)
-        .then(response => {
-          setMessage("Registration successful!");
-          setFormData({
-            fullName: "",
-            email: "",
-            password: "",
-            address: "", // Reset address field
-            phoneNumber: "", // Reset phone number field
-            role: "user",
-          });
-        })
-        .catch(error => {
-          setMessage("Registration failed. Please try again.");
-          console.error(error);
+      try {
+        const response = await axios.get('http://localhost:9999/users');
+        const users = response.data;
+        const maxId = users.reduce((max, user) => Math.max(max, parseInt(user.id, 10)), 0);
+        const newUserId = (maxId + 1).toString();
+
+        const newUser = {
+          ...formData,
+          id: newUserId,
+        };
+
+        await axios.post('http://localhost:9999/users', newUser);
+        setMessage("Registration successful!");
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+          address: "",
+          phoneNumber: "",
+          role: "user",
         });
+        setPasswordData({
+          confirmPassword: "",
+        });
+      } catch (error) {
+        setMessage("Registration failed. Please try again.");
+        console.error(error);
+      }
     }
   };
 
@@ -152,8 +164,8 @@ const Signup = () => {
           <Form.Control
             type="password"
             name="confirmPassword"
-            value={PasswordData.confirmPassword}
-            onChange={(e) => setConfirmPassword({ ...PasswordData, confirmPassword: e.target.value })}
+            value={passwordData.confirmPassword}
+            onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
             isInvalid={!!errors.confirmPassword}
           />
           <Form.Control.Feedback type="invalid">{errors.confirmPassword}</Form.Control.Feedback>

@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 export default function Header() {
   const [categories, setCategories] = useState([]);
 
-  const { isAuthenticated, logout, role } = useAuth(); // Add role from context
+  const { isAuthenticated, logout, role } = useAuth();
   const navigate = useNavigate();
 
   const [cartCount, setCartCount] = useState(0);
@@ -29,7 +29,6 @@ export default function Header() {
       setCategories(response.data);
     });
 
-    // Read cart count from localStorage
     const count = localStorage.getItem("cartCount") || 0;
     setCartCount(parseInt(count, 10));
   }, []);
@@ -69,6 +68,10 @@ export default function Header() {
               <Nav>
                 <Nav.Link href="/admin">AdminPage</Nav.Link>
               </Nav>
+            ) : role === "shipper" ? (
+              <Nav>
+                <Nav.Link href="/shipper">ShipperPage</Nav.Link>
+              </Nav>
             ) : (
               <Nav>
                 <Nav.Link href="/pro">Profile</Nav.Link>
@@ -80,18 +83,18 @@ export default function Header() {
                 <i className="bi bi-search"></i>
               </Nav.Link>
               <Nav.Link href="/manage-order">
-              <i class="bi bi-truck"></i>
+                <i className="bi bi-truck"></i>
               </Nav.Link>
               <LinkContainer to="/cart">
                 <Nav.Link>
-                <i class="bi bi-cart"></i>
+                  <i className="bi bi-cart"></i>
                   {cartCount > 0 && (
                     <span className="cart-count">{cartCount}</span>
                   )}
                 </Nav.Link>
               </LinkContainer>
               <Nav.Link href="/wishlist">
-              <i class="bi bi-suit-heart-fill"></i>
+                <i className="bi bi-suit-heart-fill"></i>
               </Nav.Link>
               {isAuthenticated ? (
                 <button className="btn-logout" onClick={handleLogout}>
@@ -99,7 +102,7 @@ export default function Header() {
                 </button>
               ) : (
                 <Nav.Link href="/login">
-                  <i class="bi bi-person-circle"></i>
+                  <i className="bi bi-person-circle"></i>
                 </Nav.Link>
               )}
             </Nav>
