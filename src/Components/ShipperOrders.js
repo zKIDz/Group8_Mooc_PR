@@ -46,18 +46,21 @@ const ShipperOrders = () => {
         fetchOrders();
     }, []);
 
-    const updateOrderStatus = async (orderId, currentStatus) => {
-        if (currentStatus === 'false') {
-            const confirmation = window.confirm('Bạn có chắc muốn thay đổi trạng thái của đơn hàng này?');
-            if (!confirmation) {
-                return;
-            }
+    const updateOrderStatus = async (orderId, newStatus) => {
+        const confirmationMessage = newStatus === 'accepted'
+            ? 'Bạn có chắc muốn nhận đơn hàng này?'
+            : 'Bạn có chắc muốn đánh dấu đơn hàng này là hoàn thành?';
+
+        const confirmation = window.confirm(confirmationMessage);
+
+        if (!confirmation) {
+            return;
         }
 
         try {
-            await axios.patch(`http://localhost:9999/orders/${orderId}`, { status: currentStatus === 'false' ? 'true' : 'false' });
+            await axios.patch(`http://localhost:9999/orders/${orderId}`, { status: newStatus });
             setOrders((prevOrders) =>
-                prevOrders.map((order) => (order.id === orderId ? { ...order, status: currentStatus === 'false' ? 'true' : 'false' } : order))
+                prevOrders.map((order) => (order.id === orderId ? { ...order, status: newStatus } : order))
             );
         } catch (error) {
             console.error('Error updating order status:', error);
@@ -94,18 +97,32 @@ const ShipperOrders = () => {
                                 <td>{order.user?.address || 'N/A'}</td>
                                 <td>{order.user?.phoneNumber || 'N/A'}</td>
                                 <td>${order.total.toFixed(2)}</td>
-                                <td>{order.status === 'false' ? 'Đang xử lý' : 'Hoàn thành'}</td>
+                                <td>
+                                    {order.status === 'false' ? 'Đang xử lý' : 
+                                     order.status === 'accepted' ? 'Đã nhận đơn' : 
+                                     'Hoàn thành'}
+                                </td>
                                 <td>
                                     <Button as={Link} to={`/order-details/${order.id}`} variant="info" className="me-2">
                                         Xem chi tiết
                                     </Button>
-                                    <Button
-                                        onClick={() => updateOrderStatus(order.id, order.status)}
-                                        variant={order.status === 'false' ? 'success' : 'secondary'}
-                                        disabled={order.status === 'true'}
-                                    >
-                                        {order.status === 'false' ? 'Đánh dấu hoàn thành' : 'Đã hoàn thành'}
-                                    </Button>
+                                    {order.status === 'false' && (
+                                        <Button
+                                            onClick={() => updateOrderStatus(order.id, 'accepted')}
+                                            variant="primary"
+                                            className="me-2"
+                                        >
+                                            Nhận đơn
+                                        </Button>
+                                    )}
+                                    {order.status === 'accepted' && (
+                                        <Button
+                                            onClick={() => updateOrderStatus(order.id, 'true')}
+                                            variant="success"
+                                        >
+                                            Đánh dấu hoàn thành
+                                        </Button>
+                                    )}
                                 </td>
                             </tr>
                         ))}
