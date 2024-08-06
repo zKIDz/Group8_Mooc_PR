@@ -13,6 +13,7 @@ const Profile = () => {
     newPassword: '',
     confirmPassword: '',
   });
+  const [errors, setErrors] = useState({});
   const [activeTab, setActiveTab] = useState('profile');
 
   useEffect(() => {
@@ -42,7 +43,66 @@ const Profile = () => {
     setPasswords({ ...passwords, [e.target.name]: e.target.value });
   };
 
+  const validateProfileForm = () => {
+    const validationErrors = {};
+    let isValid = true;
+
+    if (!updatedUser.fullName) {
+      isValid = false;
+      validationErrors.fullName = "Full name required";
+    }
+    if (!updatedUser.email) {
+      isValid = false;
+      validationErrors.email = "Email required";
+    } else if (!/\S+@\S+\.\S+/.test(updatedUser.email)) {
+      isValid = false;
+      validationErrors.email = "Email is not valid";
+    }
+    if (!updatedUser.address) {
+      isValid = false;
+      validationErrors.address = "Address required";
+    }
+    if (!updatedUser.phoneNumber) {
+      isValid = false;
+      validationErrors.phoneNumber = "Phone number required";
+    } else if (!/^\d{10}$/.test(updatedUser.phoneNumber)) {
+      isValid = false;
+      validationErrors.phoneNumber = "Phone number must be 10 digits";
+    }
+
+    setErrors(validationErrors);
+    return isValid;
+  };
+
+  const validatePasswordForm = () => {
+    const validationErrors = {};
+    let isValid = true;
+
+    const { oldPassword, newPassword, confirmPassword } = passwords;
+
+    if (!oldPassword) {
+      isValid = false;
+      validationErrors.oldPassword = "Old password required";
+    }
+    if (!newPassword) {
+      isValid = false;
+      validationErrors.newPassword = "New password required";
+    } else if (newPassword.length < 6) {
+      isValid = false;
+      validationErrors.newPassword = "Password must be at least 6 characters";
+    }
+    if (newPassword !== confirmPassword) {
+      isValid = false;
+      validationErrors.confirmPassword = "Passwords do not match";
+    }
+
+    setErrors(validationErrors);
+    return isValid;
+  };
+
   const handleSave = async () => {
+    if (!validateProfileForm()) return;
+
     try {
       await axios.patch(`http://localhost:9999/users/${user.id}`, updatedUser);
       setUser(updatedUser);
@@ -54,25 +114,17 @@ const Profile = () => {
   };
 
   const handlePasswordUpdate = async () => {
-    if (!user) return;
+    if (!validatePasswordForm()) return;
 
-    const { oldPassword, newPassword, confirmPassword } = passwords;
+    const { oldPassword, newPassword } = passwords;
 
     if (oldPassword !== user.password) {
       alert('Old password is incorrect');
-      window.location.reload();
-      return;
-    }
-
-    if (newPassword !== confirmPassword) {
-      alert('New password and confirm password do not match');
-      window.location.reload();
       return;
     }
 
     if (newPassword === oldPassword) {
       alert('New password must be different from the old password');
-      window.location.reload();
       return;
     }
 
@@ -98,6 +150,8 @@ const Profile = () => {
             value={updatedUser.fullName || ''}
             onChange={handleChange}
           />
+          {errors.fullName && <p className="error-message">{errors.fullName}</p>}
+          
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -107,6 +161,8 @@ const Profile = () => {
             onChange={handleChange}
             readOnly
           />
+          {errors.email && <p className="error-message">{errors.email}</p>}
+          
           <label htmlFor="address">Address:</label>
           <input
             type="text"
@@ -115,6 +171,8 @@ const Profile = () => {
             value={updatedUser.address || ''}
             onChange={handleChange}
           />
+          {errors.address && <p className="error-message">{errors.address}</p>}
+          
           <label htmlFor="phoneNumber">Phone Number:</label>
           <input
             type="text"
@@ -123,6 +181,8 @@ const Profile = () => {
             value={updatedUser.phoneNumber || ''}
             onChange={handleChange}
           />
+          {errors.phoneNumber && <p className="error-message">{errors.phoneNumber}</p>}
+          
           <button className="button" onClick={handleSave}>Save Changes</button>
         </div>
       );
@@ -130,6 +190,7 @@ const Profile = () => {
       return (
         <div className="tab-content">
           <h2>Change Password</h2>
+          
           <label htmlFor="oldPassword">Old Password:</label>
           <input
             type="password"
@@ -138,6 +199,8 @@ const Profile = () => {
             value={passwords.oldPassword}
             onChange={handlePasswordChange}
           />
+          {errors.oldPassword && <p className="error-message">{errors.oldPassword}</p>}
+          
           <label htmlFor="newPassword">New Password:</label>
           <input
             type="password"
@@ -146,6 +209,8 @@ const Profile = () => {
             value={passwords.newPassword}
             onChange={handlePasswordChange}
           />
+          {errors.newPassword && <p className="error-message">{errors.newPassword}</p>}
+          
           <label htmlFor="confirmPassword">Confirm New Password:</label>
           <input
             type="password"
@@ -154,6 +219,8 @@ const Profile = () => {
             value={passwords.confirmPassword}
             onChange={handlePasswordChange}
           />
+          {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
+          
           <button className="button" onClick={handlePasswordUpdate}>Change Password</button>
         </div>
       );
